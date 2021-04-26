@@ -186,10 +186,10 @@ fi
 out <<< "self-signed certificate..."
 
 # the CA key and the CA certificate
-[[ ! -d "/root/jitas_ssl" ]] && mkdir /root/jitas_ssl
+[[ ! -d "/root/jitas-ssl" ]] && mkdir /root/jitas-ssl
 
-if [[ ! -f "/root/jitas_ssl/jitas-ca.pem" ]]; then
-    cd /root/jitas_ssl
+if [[ ! -f "/root/jitas-ssl/jitas-ca.pem" ]]; then
+    cd /root/jitas-ssl
     rm -f jitas-ca.key
 
     DATE=$(date +"%Y%m%d%H%M%S")
@@ -199,8 +199,8 @@ if [[ ! -f "/root/jitas_ssl/jitas-ca.pem" ]]; then
 fi
 
 # self-signed certificate for the jitas domain
-cd /root/jitas_ssl
-rm -f /root/jitas_ssl/ssl-jitas.*
+cd /root/jitas-ssl
+rm -f /root/jitas-ssl/ssl-jitas.*
 
 # the extension file for multiple hosts:
 cat >ssl-jitas.ext <<EOF
@@ -283,7 +283,7 @@ fi
 # ------------------------------------------------------------------------------
 out <<< "nginx config..."
 
-cp /root/jitas_ssl/jitas-ca.pem /var/www/html/
+cp /root/jitas-ssl/jitas-ca.pem /var/www/html/
 wget -O /var/www/html/welcome.html $TMPL/var/www/html/welcome.html
 wget -O /etc/nginx/sites-available/jitas.conf \
     $TMPL/etc/nginx/sites-available/jitas.conf
