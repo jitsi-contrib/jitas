@@ -111,17 +111,45 @@ wget -O /etc/dconf/db/jitas.d/click-policy \
 dconf update
 
 # ------------------------------------------------------------------------------
-# x11vnc
+# x11vnc autostart
 # ------------------------------------------------------------------------------
-out <<< "x11vnc auto starter..."
+out <<< "x11vnc autostart..."
 
-wget -O /usr/local/bin/autostart-vnc \
-    $TMPL/usr/local/bin/autostart-vnc
-wget -O /etc/xdg/autostart/autostart-vnc.desktop \
-    $TMPL/etc/xdg/autostart/autostart-vnc.desktop
+wget -O /usr/local/bin/vnc-start \
+    $TMPL/usr/local/bin/vnc-start
+wget -O /etc/xdg/autostart/vnc.desktop \
+    $TMPL/etc/xdg/autostart/vnc.desktop
 
-chmod +x /usr/local/bin/autostart-vnc
+chmod +x /usr/local/bin/vnc-start
 
+# ------------------------------------------------------------------------------
+# user jitas
+# ------------------------------------------------------------------------------
+out <<< "jitas account..."
+
+# adduser jitas
+id jitas 2>/dev/null || adduser jitas --disabled-password --gecos ""
+
+# autostart desktop for jitas
+[[ -f /home/jitas/.bashrc ]] || false
+
+grep 'exec startx' /home/jitas/.bashrc || cat >>/home/jitas/.bashrc <<EOF
+
+if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty1 ]]; then
+    exec startx
+    exit
+fi
+EOF
+
+# disable some autostarted applications for jitas
+mkdir -p /home/jitas/.config/autostart
+wget -O /home/jitas/.config/autostart/mate-power-manager.desktop \
+    $TMPL/home/jitas/.config/autostart/mate-power-manager.desktop
+wget -O /home/jitas/.config/autostart/mate-screensaver.desktop \
+    $TMPL/home/jitas/.config/autostart/mate-screensaver.desktop
+wget -O /home/jitas/.config/autostart/nm-applet.desktop \
+    $TMPL/home/jitas/.config/autostart/nm-applet.desktop
+chown jitas:jitas /home/jitas/.config/autostart -R
 
 # ------------------------------------------------------------------------------
 # completed

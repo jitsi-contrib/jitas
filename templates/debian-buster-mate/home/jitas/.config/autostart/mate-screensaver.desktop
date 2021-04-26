@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Screensaver
+Exec=mate-screensaver
+OnlyShowIn=MATE;
+NoDisplay=true
+X-MATE-Autostart-enabled=false

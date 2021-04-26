@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Power Manager
+Exec=mate-power-manager
+Terminal=false
+OnlyShowIn=MATE;
+X-MATE-Autostart-enabled=false

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Network
+Exec=nm-applet
+Terminal=false
+NoDisplay=true
+NotShowIn=KDE;GNOME;
+X-MATE-Autostart-enabled=false
