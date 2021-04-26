@@ -178,8 +178,70 @@ else
 fi
 
 # ------------------------------------------------------------------------------
+# self-signed certificates
+# ------------------------------------------------------------------------------
+# the CA key and the CA certificate
+[[ ! -d "/root/jitas_ssl" ]] && mkdir /root/jitas_ssl
+
+if [[ ! -f "/root/jitas_ssl/jitas_CA.pem" ]]; then
+    cd /root/jitas_ssl
+    rm -f jitas-CA.key
+
+    DATE=$(date +"%Y%m%d%H%M%S")
+    openssl req -nodes -new -x509 -days 10950 \
+        -keyout jitas-CA.key -out jitas-CA.pem \
+        -subj "/O=jitas/OU=CA/CN=jitas $DATE-$RANDOM"
+fi
+
+# self-signed certificate for the jitas domain
+cd /root/jitas_ssl
+rm -f /root/jitas_ssl/ssl-jitas.*
+
+# the extension file for multiple hosts:
+cat >ssl-jitas.ext <<EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+EOF
+
+HOSTNAME_SHORT=$(hostname)
+HOSTNAME_FQDN=$(hostname -f)
+
+echo "DNS.1 = $HOSTNAME_SHORT" >>ssl-jitas.ext
+
+if [[ -n "$HOSTNAME_FQDN" ]] && [[ "$HOSTNAME_SHORT" != "$HOSTNAME_FQDN" ]]
+then
+    echo "DNS.2 = $HOSTNAME_FQDN" >>ssl-jitas.ext
+else
+    HOSTNAME_FQDN=$HOSTNAME_SHORT
+fi
+
+i=1
+for ip in $(hostname -I); do
+    echo "IP.$i = $ip" >>ssl-jitas.ext
+    ((i = i + 1))
+done
+
+# the dodo key and the dodo certificate
+openssl req -nodes -newkey rsa:2048 \
+    -keyout ssl-jitas.key -out ssl-jitas.csr \
+    -subj "/O=jitas/OU=TLS/CN=$HOSTNAME_FQDN"
+openssl x509 -req -CA jitas-CA.pem -CAkey jitas-CA.key -CAcreateserial \
+    -days 10950 -in ssl-jitas.csr -out ssl-jitas.pem \
+    -extfile ssl-jitas.ext
+
+# copy into /etc/ssl
+cp ssl-jitas.pem /etc/ssl/certs/
+cp ssl-jitas.key /etc/ssl/private/
+
+# ------------------------------------------------------------------------------
 # completed
 # ------------------------------------------------------------------------------
 END_TIME=$(date +%s)
 DURATION=$(date -u -d "0 $END_TIME seconds - $START_TIME seconds" +"%H:%M:%S")
 COMPLETED=true
+
+# vim: tw=80 ts=4 sw=4 sts=4 et
