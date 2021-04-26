@@ -39,6 +39,7 @@ export APT_PROXY_OPTION=$APT_PROXY_OPTION
 export DEBIAN_FRONTEND=noninteractive
 export START_TIME=$(date +%s)
 export BASEDIR=$(pwd)
+export TMPL=https://raw.githubusercontent.com/jitsi-contrib/jitas/main/templates/debian-buster-mate
 
 # ------------------------------------------------------------------------------
 # packages
@@ -84,6 +85,26 @@ systemctl disable wpa_supplicant.service
 
 systemctl stop NetworkManager.service
 systemctl disable NetworkManager.service
+
+# ------------------------------------------------------------------------------
+# dconf
+# ------------------------------------------------------------------------------
+mkdir -p /etc/dconf/profile
+mkdir -p /etc/dconf/db/jitas.d
+
+wget -O /etc/dconf/profile/user $TMPL/etc/dconf/profile/user
+wget -O /etc/dconf/db/jitas.d/disable-log-out \
+    $TMPL/etc/dconf/db/jitas.d/disable-log-out
+wget -O /etc/dconf/db/jitas.d/disable-user-switching \
+    $TMPL/etc/dconf/db/jitas.d/disable-user-switching
+wget -O /etc/dconf/db/jitas.d/disable-lock-screen \
+    $TMPL/etc/dconf/db/jitas.d/disable-lock-screen
+wget -O /etc/dconf/db/jitas.d/screensaver \
+    $TMPL/etc/dconf/db/jitas.d/screensaver
+wget -O /etc/dconf/db/jitas.d/click-policy \
+    $TMPL/etc/dconf/db/jitas.d/click-policy
+
+dconf update
 
 # ------------------------------------------------------------------------------
 # completed

@@ -1,0 +1,4 @@
+[org/mate/screensaver]
+idle-activation-enabled=false
+lock-enabled=false
+user-switch-enabled=false
