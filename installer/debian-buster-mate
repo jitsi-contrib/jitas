@@ -260,6 +260,16 @@ systemctl enable websockify-secure.service
 systemctl start websockify-secure.service
 
 # ------------------------------------------------------------------------------
+# novnc
+# ------------------------------------------------------------------------------
+if [[ -d "/var/www/novnc" ]]; then
+    cd /var/www/novnc
+    git pull
+else
+    git clone --depth=1 https://github.com/novnc/noVNC.git /var/www/novnc
+fi
+
+# ------------------------------------------------------------------------------
 # completed
 # ------------------------------------------------------------------------------
 END_TIME=$(date +%s)
