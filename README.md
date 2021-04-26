@@ -7,3 +7,10 @@ assists the presenter to share high quality materials in the Jitsi session.
 will start developing on April 26th at
 [Winning over the classroom with Jitsi](https://euhack21.bemyapp.com/)
 Hackathon.
+
+#### test install
+
+```bash
+wget -O debian-buster-mate https://raw.githubusercontent.com/jitsi-contrib/jitas/main/installer/debian-buster-mate
+bash debian-buster-mate
+```
