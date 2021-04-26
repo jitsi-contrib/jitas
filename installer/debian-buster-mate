@@ -29,6 +29,7 @@ EOF
             out <<EOF
 It's detected an already running session. Please reboot!
 EOF
+        fi
 
         exit 0
     fi
