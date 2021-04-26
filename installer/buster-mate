@@ -151,6 +151,12 @@ wget -O /home/jitas/.config/autostart/nm-applet.desktop \
     $TMPL/home/jitas/.config/autostart/nm-applet.desktop
 chown jitas:jitas /home/jitas/.config/autostart -R
 
+# vnc password
+mkdir -p /home/jitas/.vnc
+PASSWD=$(pwgen -B 12)
+x11vnc -storepasswd $PASSWD /home/jitas/.vnc/passwd
+chown jitas:jitas /home/jitas/.vnc -R
+
 # ------------------------------------------------------------------------------
 # completed
 # ------------------------------------------------------------------------------
