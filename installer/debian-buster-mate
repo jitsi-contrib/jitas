@@ -165,6 +165,8 @@ chown jitas:jitas /home/jitas/.vnc -R
 # ------------------------------------------------------------------------------
 # autologin on tty1
 # ------------------------------------------------------------------------------
+out <<< "tty autostart..."
+
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 wget -O /etc/systemd/system/getty@tty1.service.d/override.conf \
     $TMPL/etc/systemd/system/getty@tty1.service.d/override.conf
@@ -180,6 +182,8 @@ fi
 # ------------------------------------------------------------------------------
 # self-signed certificates
 # ------------------------------------------------------------------------------
+out <<< "self-signed certificate..."
+
 # the CA key and the CA certificate
 [[ ! -d "/root/jitas_ssl" ]] && mkdir /root/jitas_ssl
 
@@ -240,6 +244,8 @@ cp ssl-jitas.key /etc/ssl/private/
 # ------------------------------------------------------------------------------
 # websockify
 # ------------------------------------------------------------------------------
+out <<< "websockify config..."
+
 wget -O /usr/local/sbin/websockify-unsecure \
     $TMPL/usr/local/sbin/websockify-unsecure
 chmod u+x /usr/local/sbin/websockify-unsecure
@@ -262,6 +268,8 @@ systemctl start websockify-secure.service
 # ------------------------------------------------------------------------------
 # novnc
 # ------------------------------------------------------------------------------
+out <<< "novnc config..."
+
 if [[ -d "/var/www/novnc" ]]; then
     cd /var/www/novnc
     git pull
@@ -272,6 +280,8 @@ fi
 # ------------------------------------------------------------------------------
 # nginx
 # ------------------------------------------------------------------------------
+out <<< "nginx config..."
+
 cp /root/jitas_ssl/jitas_CA.pem /var/www/html/jitas-ca.pem
 wget -O /var/www/html/welcome.html $TMPL/var/www/html/welcome.html
 wget -O /etc/nginx/sites-available/jitas.conf \
@@ -285,6 +295,8 @@ systemctl restart nginx
 # ------------------------------------------------------------------------------
 # certbot
 # ------------------------------------------------------------------------------
+out <<< "certbox config..."
+
 mkdir -p /etc/systemd/system/certbot.service.d
 wget -O /etc/systemd/system/certbot.service.d/override.conf \
     $TMPL/etc/systemd/system/certbot.service.d/override.conf
