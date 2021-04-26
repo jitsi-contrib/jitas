@@ -270,6 +270,19 @@ else
 fi
 
 # ------------------------------------------------------------------------------
+# nginx
+# ------------------------------------------------------------------------------
+cp /root/jitas_ssl/jitas_CA.pem /var/www/html/jitas-ca.pem
+wget -O /var/www/html/welcome.html $TMPL/var/www/html/welcome.html
+wget -O /etc/nginx/sites-available/jitas.conf \
+    $TMPL/etc/nginx/sites-available/jitas.conf
+
+ln -sf ../sites-available/jitas.conf /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+
+systemctl restart nginx
+
+# ------------------------------------------------------------------------------
 # completed
 # ------------------------------------------------------------------------------
 END_TIME=$(date +%s)
