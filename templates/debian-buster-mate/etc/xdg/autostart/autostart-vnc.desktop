@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Autostart VNC
+Comment=Autostart VNC
+Type=Application
+Terminal=false
+NoDisplay=true
+Exec=/usr/local/bin/autostart-vnc
+OnlyShowIn=MATE;XFCE;GNOME;
+X-MATE-Autostart-Phase=Application
+X-MATE-AutoRestart=false
+X-GNOME-Autostart-Phase=Application
+X-GNOME-AutoRestart=false

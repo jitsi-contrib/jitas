@@ -74,6 +74,8 @@ pip3 install websockify
 # ------------------------------------------------------------------------------
 # disabled services
 # ------------------------------------------------------------------------------
+out <<< "disabling some desktop services..."
+
 systemctl stop lightdm.service
 systemctl disable lightdm.service
 
@@ -89,6 +91,8 @@ systemctl disable NetworkManager.service
 # ------------------------------------------------------------------------------
 # dconf
 # ------------------------------------------------------------------------------
+out <<< "dconf configuration..."
+
 mkdir -p /etc/dconf/profile
 mkdir -p /etc/dconf/db/jitas.d
 
@@ -105,6 +109,19 @@ wget -O /etc/dconf/db/jitas.d/click-policy \
     $TMPL/etc/dconf/db/jitas.d/click-policy
 
 dconf update
+
+# ------------------------------------------------------------------------------
+# x11vnc
+# ------------------------------------------------------------------------------
+out <<< "x11vnc auto starter..."
+
+wget -O /usr/local/bin/autostart-vnc \
+    $TMPL/usr/local/bin/autostart-vnc
+wget -O /etc/xdg/autostart/autostart-vnc.desktop \
+    $TMPL/etc/xdg/autostart/autostart-vnc.desktop
+
+chmod +x /usr/local/bin/autostart-vnc
+
 
 # ------------------------------------------------------------------------------
 # completed
