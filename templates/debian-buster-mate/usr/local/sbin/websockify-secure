@@ -1,0 +1,6 @@
+#!/bin/bash
+
+websockify --heartbeat=30 \
+    --cert=/etc/ssl/certs/ssl-jitas.pem \
+    --key=/etc/ssl/private/ssl-jitas.key \
+    6090 127.0.0.1:9900

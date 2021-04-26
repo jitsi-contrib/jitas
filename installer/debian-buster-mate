@@ -238,6 +238,28 @@ cp ssl-jitas.pem /etc/ssl/certs/
 cp ssl-jitas.key /etc/ssl/private/
 
 # ------------------------------------------------------------------------------
+# websockify
+# ------------------------------------------------------------------------------
+wget -O /usr/local/sbin/websockify-unsecure \
+    $TMPL/usr/local/sbin/websockify-unsecure
+chmod u+x /usr/local/sbin/websockify-unsecure
+
+wget -O /usr/local/sbin/websockify-secure \
+    $TMPL/usr/local/sbin/websockify-secure
+chmod u+x /usr/local/sbin/websockify-secure
+
+wget -O /etc/systemd/system/websockify-unsecure.service \
+    $TMPL/etc/systemd/system/websockify-unsecure.service
+wget -O /etc/systemd/system/websockify-secure.service \
+    $TMPL/etc/systemd/system/websockify-secure.service
+
+systemctl daemon-reload
+systemctl enable websockify-unsecure.service
+systemctl start websockify-unsecure.service
+systemctl enable websockify-secure.service
+systemctl start websockify-secure.service
+
+# ------------------------------------------------------------------------------
 # completed
 # ------------------------------------------------------------------------------
 END_TIME=$(date +%s)
