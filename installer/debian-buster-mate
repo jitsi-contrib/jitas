@@ -25,6 +25,11 @@ Installation Duration: $DURATION
 Completed successfully!
 EOF
 
+        if [ "$ACTIVE_SESSION" = true ]; then
+            out <<EOF
+It's detected an already running session. Please reboot!
+EOF
+
         exit 0
     fi
 }
@@ -161,6 +166,16 @@ chown jitas:jitas /home/jitas/.vnc -R
 # autologin on tty1
 # ------------------------------------------------------------------------------
 mkdir -p /etc/systemd/system/getty@tty1.service.d
+wget -O /etc/systemd/system/getty@tty1.service.d/override.conf \
+    $TMPL/etc/systemd/system/getty@tty1.service.d/override.conf
+systemctl daemon-reload
+
+# if this is a reinstall time then reboot is needed
+if pgrep -u jitas >/dev/null; then
+    ACTIVE_SESSION=true
+else
+    systemctl restart getty@tty1.service
+fi
 
 # ------------------------------------------------------------------------------
 # completed
