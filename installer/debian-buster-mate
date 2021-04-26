@@ -283,6 +283,15 @@ rm -f /etc/nginx/sites-enabled/default
 systemctl restart nginx
 
 # ------------------------------------------------------------------------------
+# certbot
+# ------------------------------------------------------------------------------
+mkdir -p /etc/systemd/system/certbot.service.d
+wget -O /etc/systemd/system/certbot.service.d/override.conf \
+    $TMPL/etc/systemd/system/certbot.service.d/override.conf
+
+systemctl daemon-reload
+
+# ------------------------------------------------------------------------------
 # completed
 # ------------------------------------------------------------------------------
 END_TIME=$(date +%s)
