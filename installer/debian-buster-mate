@@ -155,7 +155,7 @@ wget -O /home/jitas/.config/autostart/mate-screensaver.desktop \
     $TMPL/home/jitas/.config/autostart/mate-screensaver.desktop
 wget -O /home/jitas/.config/autostart/nm-applet.desktop \
     $TMPL/home/jitas/.config/autostart/nm-applet.desktop
-chown jitas:jitas /home/jitas/.config/autostart -R
+chown jitas:jitas /home/jitas/.config -R
 
 # vnc password
 mkdir -p /home/jitas/.vnc
