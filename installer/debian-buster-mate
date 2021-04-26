@@ -188,13 +188,13 @@ out <<< "self-signed certificate..."
 # the CA key and the CA certificate
 [[ ! -d "/root/jitas_ssl" ]] && mkdir /root/jitas_ssl
 
-if [[ ! -f "/root/jitas_ssl/jitas_CA.pem" ]]; then
+if [[ ! -f "/root/jitas_ssl/jitas-ca.pem" ]]; then
     cd /root/jitas_ssl
-    rm -f jitas-CA.key
+    rm -f jitas-ca.key
 
     DATE=$(date +"%Y%m%d%H%M%S")
     openssl req -nodes -new -x509 -days 10950 \
-        -keyout jitas-CA.key -out jitas-CA.pem \
+        -keyout jitas-ca.key -out jitas-ca.pem \
         -subj "/O=jitas/OU=CA/CN=jitas $DATE-$RANDOM"
 fi
 
@@ -234,7 +234,7 @@ done
 openssl req -nodes -newkey rsa:2048 \
     -keyout ssl-jitas.key -out ssl-jitas.csr \
     -subj "/O=jitas/OU=TLS/CN=$HOSTNAME_FQDN"
-openssl x509 -req -CA jitas-CA.pem -CAkey jitas-CA.key -CAcreateserial \
+openssl x509 -req -CA jitas-ca.pem -CAkey jitas-ca.key -CAcreateserial \
     -days 10950 -in ssl-jitas.csr -out ssl-jitas.pem \
     -extfile ssl-jitas.ext
 
@@ -283,7 +283,7 @@ fi
 # ------------------------------------------------------------------------------
 out <<< "nginx config..."
 
-cp /root/jitas_ssl/jitas_CA.pem /var/www/html/jitas-ca.pem
+cp /root/jitas_ssl/jitas-ca.pem /var/www/html/
 wget -O /var/www/html/welcome.html $TMPL/var/www/html/welcome.html
 wget -O /etc/nginx/sites-available/jitas.conf \
     $TMPL/etc/nginx/sites-available/jitas.conf
