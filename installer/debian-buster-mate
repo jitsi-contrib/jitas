@@ -280,11 +280,6 @@ if [[ -z "$(id jitas 2>/dev/null)" ]]; then
     chsh -s /bin/zsh jitas
 fi
 
-# disable some autostarted applications for jitas
-mkdir -p /home/jitas/.config/autostart
-cp $TMPL/home/jitas/.config/autostart/* /home/jitas/.config/autostart/
-chown jitas:jitas /home/jitas/.config -R
-
 # ------------------------------------------------------------------------------
 # autologin on tty1
 # ------------------------------------------------------------------------------
