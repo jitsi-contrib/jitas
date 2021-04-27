@@ -1,6 +1,8 @@
 How to connect to Jitas server
 ==============================
 
+Replace the "___HOST___" value with your host address.
+
 Unsecure link (no certificate):
   http://___HOST___/novnc/?host=___HOST___&port=6080&encrypt=0&resize=scale&password=___PASSWD___
 
