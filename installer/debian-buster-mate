@@ -111,6 +111,10 @@ git clone --depth=1 $REMOTE $REPO
 # ------------------------------------------------------------------------------
 out <<< "devices..."
 
+# dummy audio
+cp $TMPL/usr/local/bin/audio-start /usr/local/bin/
+chmod +x /usr/local/bin/audio-start
+
 # virtual camera
 cp $TMPL/etc/modprobe.d/jitas-camera.conf /etc/modprobe.d/
 [ -z "$(egrep '^v4l2loopback' /etc/modules)" ] && \
@@ -120,9 +124,8 @@ rmmod -f v4l2loopback || true
 modprobe v4l2loopback || true
 lsmod | grep v4l2loopback
 
-# dummy audio
-cp $TMPL/usr/local/bin/audio-start /usr/local/bin/
-chmod +x /usr/local/bin/audio-start
+cp $TMPL/usr/local/bin/video-start /usr/local/bin/
+chmod +x /usr/local/bin/video-start
 
 # ------------------------------------------------------------------------------
 # disabled desktop services
