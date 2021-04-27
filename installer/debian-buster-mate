@@ -76,7 +76,7 @@ apt-get -y autoremove --purge
 
 apt-get $APT_PROXY_OPTION -y install apt-transport-https gnupg
 apt-get $APT_PROXY_OPTION -y install wget curl
-apt-get $APT_PROXY_OPTION -y install tmux vim ack jq rsync htop
+apt-get $APT_PROXY_OPTION -y install zsh tmux vim ack autojump jq rsync htop
 apt-get $APT_PROXY_OPTION -y install ssl-cert ca-certificates openssl certbot
 apt-get $APT_PROXY_OPTION -y install task-desktop task-mate-desktop dconf-cli
 apt-get $APT_PROXY_OPTION -y install chromium
@@ -131,6 +131,9 @@ dconf update
 out <<< "skel configuration..."
 
 cp -arp $TMPL/etc/skel/.config /etc/skel/
+cp $TMPL/etc/skel/.zshrc /etc/skel/
+cp $TMPL/etc/skel/.vimrc /etc/skel/
+cp $TMPL/etc/skel/.tmux.conf /etc/skel/
 
 # ------------------------------------------------------------------------------
 # x11vnc autostart
@@ -143,7 +146,7 @@ chmod +x /usr/local/bin/vnc-start
 # vnc password
 mkdir -p /etc/skel/.vnc
 PASSWD=$(pwgen -B 12)
-x11vnc -storepasswd $PASSWD /home/jitas/.vnc/passwd
+x11vnc -storepasswd $PASSWD /etc/skel/.vnc/passwd
 
 # ------------------------------------------------------------------------------
 # self-signed certificates
@@ -274,18 +277,8 @@ if [[ -z "$(id jitas 2>/dev/null)" ]]; then
     adduser jitas --disabled-password --gecos ""
     adduser jitas audio
     adduser jitas video
+    chsh -s /bin/zsh jitas
 fi
-
-# autostart desktop for jitas
-[[ -f /home/jitas/.bashrc ]] || false
-
-grep 'exec startx' /home/jitas/.bashrc || cat >>/home/jitas/.bashrc <<EOF
-
-if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty1 ]]; then
-    exec startx
-    exit
-fi
-EOF
 
 # disable some autostarted applications for jitas
 mkdir -p /home/jitas/.config/autostart
