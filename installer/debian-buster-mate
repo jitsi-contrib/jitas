@@ -152,7 +152,7 @@ PASSWD=$(pwgen -B 12)
 x11vnc -storepasswd $PASSWD /etc/skel/.vnc/passwd
 
 [[ -f "/root/README-JITAS.txt" ]] && \
-    mv /root/README-JITAS.txt /root/README-JITAS.txt.old
+    mv /root/README-JITAS.txt /root/README-JITAS.txt.$(date +'%Y-%m-%d-%H%M%S')
 cp $TMPL/root/README-JITAS.txt
 sed -i "s/___PASSWD___/$PASSWD/g" /root/README-JITAS.txt
 
