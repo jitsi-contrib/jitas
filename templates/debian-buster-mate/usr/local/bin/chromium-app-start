@@ -1,8 +1,8 @@
 #!/bin/bash
 
-mkdir -p ~/.config/jitas-chromium
+mkdir -p $HOME/.config/jitas-chromium
 
 chromium --class=jitas --tag=jitas --silent-launch --incognito --mute-audio \
-    --user-data-dir=~/.config/jitas-chromium
+    --user-data-dir=$HOME/.config/jitas-chromium
 
 systemctl --user stop video.service

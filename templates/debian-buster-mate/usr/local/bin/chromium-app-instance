@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+WIDTH=320
+HEIGHT=180
+APP=$1
+
+[[ -z "$APP" ]] && exit 1
+
+mkdir -p $HOME/.config/jitas-chromium
+
+systemctl --user start video.service
+
+chromium --class=jitas --tag=jitas --incognito --mute-audio \
+    --new-window --window-size=$WIDTH,$HEIGHT \
+    --user-data-dir=$HOME/.config/jitas-chromium --app=$APP
