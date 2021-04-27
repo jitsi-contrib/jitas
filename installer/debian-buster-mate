@@ -92,6 +92,10 @@ apt-get $APT_PROXY_OPTION -y install python3-pip python3-setuptools \
 
 pip3 install websockify
 
+# set the default browser
+update-alternatives --set gnome-www-browser /usr/bin/chromium || true
+update-alternatives --set x-www-browser /usr/bin/chromium || true
+
 # ------------------------------------------------------------------------------
 # git clone
 # ------------------------------------------------------------------------------
