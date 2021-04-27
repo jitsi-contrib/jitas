@@ -168,28 +168,17 @@ cp $TMPL/etc/dconf/db/jitas.d/* /etc/dconf/db/jitas.d/
 dconf update
 
 # ------------------------------------------------------------------------------
-# skel
+# chromium-app
 # ------------------------------------------------------------------------------
-out <<< "skel configuration..."
+out <<< "chromium-app..."
 
-cp -arp $TMPL/etc/skel/.config /etc/skel/
-cp $TMPL/etc/skel/.zshrc /etc/skel/
-cp $TMPL/etc/skel/.vimrc /etc/skel/
-cp $TMPL/etc/skel/.tmux.conf /etc/skel/
+cp $TMPL/usr/local/bin/chromium-app-start /usr/local/bin/
+chmod +x /usr/local/bin/chromium-app-start
 
 # ------------------------------------------------------------------------------
-# defaults
+# vnc
 # ------------------------------------------------------------------------------
-out <<< "defaults..."
-
-# set the default browser
-update-alternatives --set gnome-www-browser /usr/bin/chromium || true
-update-alternatives --set x-www-browser /usr/bin/chromium || true
-
-# ------------------------------------------------------------------------------
-# x11vnc autostart
-# ------------------------------------------------------------------------------
-out <<< "x11vnc autostart..."
+out <<< "VNC..."
 
 cp $TMPL/usr/local/bin/vnc-start /usr/local/bin/
 chmod +x /usr/local/bin/vnc-start
@@ -208,6 +197,25 @@ x11vnc -storepasswd $PASSWD /etc/skel/.vnc/passwd
     mv /root/README-JITAS.txt /root/README-JITAS.txt.$(date +'%Y-%m-%d-%H%M%S')
 cp $TMPL/root/README-JITAS.txt /root/
 sed -i "s/___PASSWD___/$PASSWD/g" /root/README-JITAS.txt
+
+# ------------------------------------------------------------------------------
+# skel
+# ------------------------------------------------------------------------------
+out <<< "skel configuration..."
+
+cp -arp $TMPL/etc/skel/.config /etc/skel/
+cp $TMPL/etc/skel/.zshrc /etc/skel/
+cp $TMPL/etc/skel/.vimrc /etc/skel/
+cp $TMPL/etc/skel/.tmux.conf /etc/skel/
+
+# ------------------------------------------------------------------------------
+# defaults
+# ------------------------------------------------------------------------------
+out <<< "defaults..."
+
+# set the default browser
+update-alternatives --set gnome-www-browser /usr/bin/chromium || true
+update-alternatives --set x-www-browser /usr/bin/chromium || true
 
 # ------------------------------------------------------------------------------
 # self-signed certificates
