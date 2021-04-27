@@ -20,6 +20,8 @@ function on_exit {
         out <<< "Something went wrong. Not completed!"
         exit 1
     else
+        cp $TMPL/var/www/html/index.html /var/www/html/index.html
+
         out <<EOF
 ############################################################
                    COMPLETED SUCCESSFULLY
@@ -261,7 +263,6 @@ fi
 out <<< "nginx config..."
 
 cp /root/jitas-ssl/jitas-ca.pem /var/www/html/
-cp $TMPL/var/www/html/welcome.html /var/www/html/index.html
 cp $TMPL/etc/nginx/sites-available/jitas.conf /etc/nginx/sites-available/
 
 ln -sf ../sites-available/jitas.conf /etc/nginx/sites-enabled/
