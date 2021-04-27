@@ -66,6 +66,7 @@ export REPO=/tmp/jitas-repo
 export TMPL=$REPO/templates/debian-buster-mate
 
 # ------------------------------------------------------------------------------
+# distro check
 # ------------------------------------------------------------------------------
 out <<< "distro checking..."
 
@@ -209,9 +210,9 @@ cp $TMPL/etc/skel/.vimrc /etc/skel/
 cp $TMPL/etc/skel/.tmux.conf /etc/skel/
 
 # ------------------------------------------------------------------------------
-# defaults
+# default apps
 # ------------------------------------------------------------------------------
-out <<< "defaults..."
+out <<< "default apps..."
 
 # set the default browser
 update-alternatives --set gnome-www-browser /usr/bin/chromium || true
