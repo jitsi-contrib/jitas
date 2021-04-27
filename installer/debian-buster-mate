@@ -22,13 +22,13 @@ function on_exit {
     else
         out <<EOF
 ############################################################
-#                 COMPLETED SUCCESSFULLY
+                   COMPLETED SUCCESSFULLY
 ############################################################
 
 Installation Duration: $DURATION
 EOF
 
-        if [ "$ACTIVE_SESSION" = true ]; then
+        if [[ "$ACTIVE_SESSION" = true ]]; then
             out <<EOF
 It's detected an already running session.
 Please reboot to activate new settings!
@@ -96,7 +96,7 @@ rm -rf $REPO
 git clone --depth=1 $REMOTE $REPO
 
 # ------------------------------------------------------------------------------
-# disabled services
+# disabled desktop services
 # ------------------------------------------------------------------------------
 out <<< "disabling some desktop services..."
 
@@ -126,6 +126,13 @@ cp $TMPL/etc/dconf/db/jitas.d/* /etc/dconf/db/jitas.d/
 dconf update
 
 # ------------------------------------------------------------------------------
+# skel
+# ------------------------------------------------------------------------------
+out <<< "skel configuration..."
+
+cp -arp $TMPL/etc/skel/.config /etc/skel/
+
+# ------------------------------------------------------------------------------
 # x11vnc autostart
 # ------------------------------------------------------------------------------
 out <<< "x11vnc autostart..."
@@ -133,52 +140,10 @@ out <<< "x11vnc autostart..."
 cp $TMPL/usr/local/bin/vnc-start /usr/local/bin/
 chmod +x /usr/local/bin/vnc-start
 
-
-# ------------------------------------------------------------------------------
-# user jitas
-# ------------------------------------------------------------------------------
-out <<< "jitas account..."
-
-# adduser jitas
-id jitas 2>/dev/null || adduser jitas --disabled-password --gecos ""
-
-# autostart desktop for jitas
-[[ -f /home/jitas/.bashrc ]] || false
-
-grep 'exec startx' /home/jitas/.bashrc || cat >>/home/jitas/.bashrc <<EOF
-
-if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty1 ]]; then
-    exec startx
-    exit
-fi
-EOF
-
-# disable some autostarted applications for jitas
-mkdir -p /home/jitas/.config/autostart
-cp $TMPL/home/jitas/.config/autostart/* /home/jitas/.config/autostart/
-chown jitas:jitas /home/jitas/.config -R
-
 # vnc password
-# move this to skel
-#mkdir -p /home/jitas/.vnc
-#PASSWD=$(pwgen -B 12)
-#x11vnc -storepasswd $PASSWD /home/jitas/.vnc/passwd
-#chown jitas:jitas /home/jitas/.vnc -R
-
-# ------------------------------------------------------------------------------
-# autologin on tty1
-# ------------------------------------------------------------------------------
-out <<< "tty autostart..."
-
-cp -arp $TMPL/etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
-systemctl daemon-reload
-
-# if this is a reinstall time then reboot is needed
-if pgrep -u jitas >/dev/null; then
-    ACTIVE_SESSION=true
-else
-    systemctl restart getty@tty1.service
-fi
+mkdir -p /etc/skel/.vnc
+PASSWD=$(pwgen -B 12)
+x11vnc -storepasswd $PASSWD /home/jitas/.vnc/passwd
 
 # ------------------------------------------------------------------------------
 # self-signed certificates
@@ -230,7 +195,7 @@ for ip in $(hostname -I); do
     ((i = i + 1))
 done
 
-# the dodo key and the dodo certificate
+# the jitas key and the jitas certificate
 openssl req -nodes -newkey rsa:2048 \
     -keyout ssl-jitas.key -out ssl-jitas.csr \
     -subj "/O=jitas/OU=TLS/CN=$HOSTNAME_FQDN"
@@ -298,6 +263,49 @@ cp $TMPL/etc/systemd/system/certbot.service.d/override.conf \
     /etc/systemd/system/certbot.service.d/
 
 systemctl daemon-reload
+
+# ------------------------------------------------------------------------------
+# user jitas
+# ------------------------------------------------------------------------------
+out <<< "jitas account..."
+
+# adduser jitas
+if [[ -z "$(id jitas 2>/dev/null)" ]]; then
+    adduser jitas --disabled-password --gecos ""
+    adduser jitas audio
+    adduser jitas video
+fi
+
+# autostart desktop for jitas
+[[ -f /home/jitas/.bashrc ]] || false
+
+grep 'exec startx' /home/jitas/.bashrc || cat >>/home/jitas/.bashrc <<EOF
+
+if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty1 ]]; then
+    exec startx
+    exit
+fi
+EOF
+
+# disable some autostarted applications for jitas
+mkdir -p /home/jitas/.config/autostart
+cp $TMPL/home/jitas/.config/autostart/* /home/jitas/.config/autostart/
+chown jitas:jitas /home/jitas/.config -R
+
+# ------------------------------------------------------------------------------
+# autologin on tty1
+# ------------------------------------------------------------------------------
+out <<< "tty autostart..."
+
+cp -arp $TMPL/etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
+systemctl daemon-reload
+
+# if this is a reinstall time then reboot is needed
+if pgrep -u jitas >/dev/null; then
+    ACTIVE_SESSION=true
+else
+    systemctl restart getty@tty1.service
+fi
 
 # ------------------------------------------------------------------------------
 # completed
