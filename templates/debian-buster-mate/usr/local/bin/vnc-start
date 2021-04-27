@@ -1,9 +1,13 @@
 #!/bin/bash
 
+# kill the old vnc instances if any
 pkill -u $USER -f vnc-jitas; sleep 2
 pkill -u $USER -f vnc-jitas -9; sleep 1
 
+# disable screensaver
 xset -dpms
 xset s off
+
+# start the vnc instance
 x11vnc -display :0 -localhost -autoport 9900 -noipv6 -nolookup \
     -once -loop -usepw -shared -noxdamage -nodpms -tag vnc-jitas

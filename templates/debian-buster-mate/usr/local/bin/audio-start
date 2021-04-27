@@ -1,10 +1,12 @@
 #!/bin/bash
 set -e
 
+# disable all real sound cards if any
 for card in $(pactl list short cards | cut -f1); do
     pactl set-card-profile $card off
 done
 
+# set the dummy audio as the only mic
 pacmd load-module module-remap-source \
     source_name=jitas-mic \
     master=auto_null.monitor \
