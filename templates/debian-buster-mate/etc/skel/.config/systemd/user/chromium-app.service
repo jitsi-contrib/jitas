@@ -1,8 +1,8 @@
 [Unit]
-Description=video service
+Description=Chromium app service
 
 [Service]
-ExecStart=/usr/local/bin/video-start
+ExecStart=/usr/local/bin/chromium-app-start
 Restart=always
 RestartSec=2
 

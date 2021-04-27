@@ -1,5 +1,5 @@
 [Unit]
-Description=VNC
+Description=VNC service
 
 [Service]
 ExecStart=/usr/local/bin/vnc-start

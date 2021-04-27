@@ -1,5 +1,5 @@
 [Unit]
-Description=Audio
+Description=audio service
 
 [Service]
 Type=oneshot
