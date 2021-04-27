@@ -30,7 +30,10 @@ function on_exit {
 Installation Duration: $DURATION
 VNC password: $PASSWD
 
-check README-JITAS.txt file to learn how to connect
+check README-JITAS.txt file or GitHub repo to learn
+how to connect
+
+GitHub: https://github.com/jitsi-contrib/jitas
 EOF
 
         if [[ "$ACTIVE_SESSION" = true ]]; then
