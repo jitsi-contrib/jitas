@@ -127,7 +127,7 @@ out <<< "devices..."
 
 # dummy audio
 cp $TMPL/usr/local/bin/audio-start /usr/local/bin/
-chmod +x /usr/local/bin/audio-start
+chmod 755 /usr/local/bin/audio-start
 
 # virtual camera
 cp $TMPL/etc/modprobe.d/jitas-camera.conf /etc/modprobe.d/
@@ -139,7 +139,7 @@ modprobe v4l2loopback || true
 lsmod | grep v4l2loopback
 
 cp $TMPL/usr/local/bin/video-start /usr/local/bin/
-chmod +x /usr/local/bin/video-start
+chmod 755 /usr/local/bin/video-start
 
 # ------------------------------------------------------------------------------
 # disabled desktop services
@@ -177,9 +177,9 @@ dconf update
 out <<< "chromium-app..."
 
 cp $TMPL/usr/local/bin/chromium-app-start /usr/local/bin/
-chmod +x /usr/local/bin/chromium-app-start
+chmod 755 /usr/local/bin/chromium-app-start
 cp $TMPL/usr/local/bin/chromium-app-instance /usr/local/bin/
-chmod +x /usr/local/bin/chromium-app-instance
+chmod 755 /usr/local/bin/chromium-app-instance
 
 # ------------------------------------------------------------------------------
 # vnc
@@ -187,7 +187,7 @@ chmod +x /usr/local/bin/chromium-app-instance
 out <<< "VNC..."
 
 cp $TMPL/usr/local/bin/vnc-start /usr/local/bin/
-chmod +x /usr/local/bin/vnc-start
+chmod 755 /usr/local/bin/vnc-start
 
 # vnc password
 if [[ -f "/root/README-JITAS.txt" ]]; then
@@ -291,10 +291,10 @@ cp ssl-jitas.key /etc/ssl/private/
 out <<< "websockify config..."
 
 cp $TMPL/usr/local/sbin/websockify-unsecure /usr/local/sbin/
-chmod u+x /usr/local/sbin/websockify-unsecure
+chmod 744 /usr/local/sbin/websockify-unsecure
 
 cp $TMPL/usr/local/sbin/websockify-secure /usr/local/sbin/
-chmod u+x /usr/local/sbin/websockify-secure
+chmod 744 /usr/local/sbin/websockify-secure
 
 cp $TMPL/etc/systemd/system/websockify-unsecure.service /etc/systemd/system/
 cp $TMPL/etc/systemd/system/websockify-secure.service /etc/systemd/system/
