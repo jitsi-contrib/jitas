@@ -1,8 +1,13 @@
 #!/bin/bash
 
+WIDTH=320
+HEIGHT=180
+
 mkdir -p $HOME/.config/jitas-chromium
 
-chromium --class=jitas --tag=jitas --silent-launch --incognito --mute-audio \
-    --user-data-dir=$HOME/.config/jitas-chromium
+# start the chromium in the backend
+chromium --class=jitas --silent-launch --incognito --mute-audio \
+    --window-size=$WIDTH,$HEIGHT --user-data-dir=$HOME/.config/jitas-chromium
 
+# stop the desktop capturing since all chromium app are finished
 systemctl --user stop video.service
