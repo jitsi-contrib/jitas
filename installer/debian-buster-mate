@@ -147,8 +147,13 @@ cp $TMPL/usr/local/bin/vnc-start /usr/local/bin/
 chmod +x /usr/local/bin/vnc-start
 
 # vnc password
+if [[ -f "/root/README-JITAS.txt" ]]; then
+    PASSWD=$(egrep -i '^Default VNC password:' /root/README-JITAS.txt | \
+        cut -d: -f2 | xargs)
+fi
+[[ -z "$PASSWD" ]] && PASSWD=$(pwgen -B 12)
+
 mkdir -p /etc/skel/.vnc
-PASSWD=$(pwgen -B 12)
 x11vnc -storepasswd $PASSWD /etc/skel/.vnc/passwd
 
 [[ -f "/root/README-JITAS.txt" ]] && \
