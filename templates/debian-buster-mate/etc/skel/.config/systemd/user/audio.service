@@ -3,7 +3,7 @@ Description=Audio
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/audio.service
+ExecStart=/usr/local/bin/audio-start
 RemainAfterExit=true
 
 [Install]
