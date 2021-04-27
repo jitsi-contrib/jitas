@@ -1,0 +1,10 @@
+[Unit]
+Description=Audio
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/audio.service
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
