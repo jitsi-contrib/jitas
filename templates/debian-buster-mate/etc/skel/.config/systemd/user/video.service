@@ -1,0 +1,10 @@
+[Unit]
+Description=video
+
+[Service]
+ExecStart=/usr/local/bin/video-start
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
