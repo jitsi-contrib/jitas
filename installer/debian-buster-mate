@@ -87,7 +87,7 @@ apt-get $APT_PROXY_OPTION -y install wget curl git rsync
 apt-get $APT_PROXY_OPTION -y install zsh tmux vim ack autojump htop
 apt-get $APT_PROXY_OPTION -y install ssl-cert ca-certificates openssl
 apt-get $APT_PROXY_OPTION -y install task-desktop task-mate-desktop dconf-cli
-apt-get $APT_PROXY_OPTION -y install chromium
+apt-get $APT_PROXY_OPTION -y install chromium vlc totem
 apt-get $APT_PROXY_OPTION -y install ffmpeg pavucontrol
 apt-get $APT_PROXY_OPTION -y install x11vnc pwgen
 apt-get $APT_PROXY_OPTION -y install wmctrl xdotool yad jq
