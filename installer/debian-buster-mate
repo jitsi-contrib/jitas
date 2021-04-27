@@ -66,6 +66,16 @@ export REPO=/tmp/jitas-repo
 export TMPL=$REPO/templates/debian-buster-mate
 
 # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+out <<< "distro checking..."
+
+DISTRO=$(lsb_release -c | cut -d: -f2 | xargs)
+if [[ "$DISTRO" != "buster" ]]; then
+    out <<< "unsupported distro"
+    exit 1
+fi
+
+# ------------------------------------------------------------------------------
 # packages
 # ------------------------------------------------------------------------------
 out <<< "installing packages..."
