@@ -6,4 +6,4 @@ pkill -u $USER -f vnc-jitas -9; sleep 1
 xset -dpms
 xset s off
 x11vnc -display :0 -localhost -autoport 9900 -noipv6 -nolookup \
-    -once -loop -usepw -shared -noxdamage -nodpms -tag vnc-jitas &
+    -once -loop -usepw -shared -noxdamage -nodpms -tag vnc-jitas
