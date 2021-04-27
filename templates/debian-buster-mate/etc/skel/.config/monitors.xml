@@ -2,7 +2,7 @@
   <configuration>
       <clone>no</clone>
       <output name="Virtual-0">
-          <vendor>jitas</vendor>
+          <vendor>???</vendor>
           <product>0x0000</product>
           <serial>0x00000000</serial>
           <width>1280</width>
