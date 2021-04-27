@@ -109,6 +109,9 @@ apt-get $APT_PROXY_OPTION -y install python3-pip python3-setuptools \
 
 pip3 install websockify
 
+apt-get -y purge upower || true
+apt-get -y autoremove --purge
+
 # ------------------------------------------------------------------------------
 # git clone
 # ------------------------------------------------------------------------------
