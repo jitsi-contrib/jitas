@@ -86,7 +86,7 @@ pip3 install websockify
 out <<< "cloning Git repo..."
 
 rm -rf $REPO
-git clone --depth=1 -b $REMOTE $REPO
+git clone --depth=1 $REMOTE $REPO
 
 # ------------------------------------------------------------------------------
 # disabled services
