@@ -4,3 +4,9 @@ set -e
 for card in $(pactl list short cards | cut -f1); do
     pactl set-card-profile $card off
 done
+
+pacmd load-module module-remap-source \
+    source_name=jitas-mic \
+    master=auto_null.monitor \
+    source_properties=device.description=jitas-microphone \
+    channels=2
