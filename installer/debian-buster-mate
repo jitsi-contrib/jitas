@@ -27,7 +27,8 @@ EOF
 
         if [ "$ACTIVE_SESSION" = true ]; then
             out <<EOF
-It's detected an already running session. Please reboot!
+It's detected an already running session.
+Please reboot to activate new settings!
 EOF
         fi
 
@@ -41,11 +42,13 @@ trap on_exit EXIT
 # ------------------------------------------------------------------------------
 # environment
 # ------------------------------------------------------------------------------
+export START_TIME=$(date +%s)
 export APT_PROXY_OPTION=$APT_PROXY_OPTION
 export DEBIAN_FRONTEND=noninteractive
-export START_TIME=$(date +%s)
 export BASEDIR=$(pwd)
-export TMPL=https://raw.githubusercontent.com/jitsi-contrib/jitas/main/templates/debian-buster-mate
+export REMOTE=https://github.com/jitsi-contrib/jitas.git
+export REPO=/tmp/jitas-repo
+export TMPL=$REPO/templates/debian-buster-mate
 
 # ------------------------------------------------------------------------------
 # packages
@@ -78,6 +81,14 @@ apt-get $APT_PROXY_OPTION -y install python3-pip python3-setuptools \
 pip3 install websockify
 
 # ------------------------------------------------------------------------------
+# git clone
+# ------------------------------------------------------------------------------
+out <<< "cloning Git repo..."
+
+rm -rf $REPO
+git clone --depth=1 -b $REMOTE $REPO
+
+# ------------------------------------------------------------------------------
 # disabled services
 # ------------------------------------------------------------------------------
 out <<< "disabling some desktop services..."
@@ -102,17 +113,8 @@ out <<< "dconf configuration..."
 mkdir -p /etc/dconf/profile
 mkdir -p /etc/dconf/db/jitas.d
 
-wget -O /etc/dconf/profile/user $TMPL/etc/dconf/profile/user
-wget -O /etc/dconf/db/jitas.d/disable-log-out \
-    $TMPL/etc/dconf/db/jitas.d/disable-log-out
-wget -O /etc/dconf/db/jitas.d/disable-user-switching \
-    $TMPL/etc/dconf/db/jitas.d/disable-user-switching
-wget -O /etc/dconf/db/jitas.d/disable-lock-screen \
-    $TMPL/etc/dconf/db/jitas.d/disable-lock-screen
-wget -O /etc/dconf/db/jitas.d/screensaver \
-    $TMPL/etc/dconf/db/jitas.d/screensaver
-wget -O /etc/dconf/db/jitas.d/click-policy \
-    $TMPL/etc/dconf/db/jitas.d/click-policy
+cp $TMPL/etc/dconf/profile/user /etc/dconf/profile/
+cp $TMPL/etc/dconf/db/jitas.d/* /etc/dconf/db/jitas.d/
 
 dconf update
 
@@ -121,12 +123,9 @@ dconf update
 # ------------------------------------------------------------------------------
 out <<< "x11vnc autostart..."
 
-wget -O /usr/local/bin/vnc-start \
-    $TMPL/usr/local/bin/vnc-start
-wget -O /etc/xdg/autostart/vnc.desktop \
-    $TMPL/etc/xdg/autostart/vnc.desktop
-
+cp $TMPL/usr/local/bin/vnc-start /usr/local/bin/
 chmod +x /usr/local/bin/vnc-start
+
 
 # ------------------------------------------------------------------------------
 # user jitas
@@ -149,28 +148,22 @@ EOF
 
 # disable some autostarted applications for jitas
 mkdir -p /home/jitas/.config/autostart
-wget -O /home/jitas/.config/autostart/mate-power-manager.desktop \
-    $TMPL/home/jitas/.config/autostart/mate-power-manager.desktop
-wget -O /home/jitas/.config/autostart/mate-screensaver.desktop \
-    $TMPL/home/jitas/.config/autostart/mate-screensaver.desktop
-wget -O /home/jitas/.config/autostart/nm-applet.desktop \
-    $TMPL/home/jitas/.config/autostart/nm-applet.desktop
+cp $TMPL/home/jitas/.config/autostart/* /home/jitas/.config/autostart/
 chown jitas:jitas /home/jitas/.config -R
 
 # vnc password
-mkdir -p /home/jitas/.vnc
-PASSWD=$(pwgen -B 12)
-x11vnc -storepasswd $PASSWD /home/jitas/.vnc/passwd
-chown jitas:jitas /home/jitas/.vnc -R
+# move this to skel
+#mkdir -p /home/jitas/.vnc
+#PASSWD=$(pwgen -B 12)
+#x11vnc -storepasswd $PASSWD /home/jitas/.vnc/passwd
+#chown jitas:jitas /home/jitas/.vnc -R
 
 # ------------------------------------------------------------------------------
 # autologin on tty1
 # ------------------------------------------------------------------------------
 out <<< "tty autostart..."
 
-mkdir -p /etc/systemd/system/getty@tty1.service.d
-wget -O /etc/systemd/system/getty@tty1.service.d/override.conf \
-    $TMPL/etc/systemd/system/getty@tty1.service.d/override.conf
+cp -arp $TMPL/etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
 systemctl daemon-reload
 
 # if this is a reinstall time then reboot is needed
@@ -247,18 +240,14 @@ cp ssl-jitas.key /etc/ssl/private/
 # ------------------------------------------------------------------------------
 out <<< "websockify config..."
 
-wget -O /usr/local/sbin/websockify-unsecure \
-    $TMPL/usr/local/sbin/websockify-unsecure
+cp $TMPL/usr/local/sbin/websockify-unsecure /usr/local/sbin/
 chmod u+x /usr/local/sbin/websockify-unsecure
 
-wget -O /usr/local/sbin/websockify-secure \
-    $TMPL/usr/local/sbin/websockify-secure
+cp $TMPL/usr/local/sbin/websockify-secure /usr/local/sbin/
 chmod u+x /usr/local/sbin/websockify-secure
 
-wget -O /etc/systemd/system/websockify-unsecure.service \
-    $TMPL/etc/systemd/system/websockify-unsecure.service
-wget -O /etc/systemd/system/websockify-secure.service \
-    $TMPL/etc/systemd/system/websockify-secure.service
+cp $TMPL/etc/systemd/system/websockify-unsecure.service /etc/systemd/system/
+cp $TMPL/etc/systemd/system/websockify-secure.service /etc/systemd/system/
 
 systemctl daemon-reload
 systemctl enable websockify-unsecure.service
@@ -284,9 +273,8 @@ fi
 out <<< "nginx config..."
 
 cp /root/jitas-ssl/jitas-ca.pem /var/www/html/
-wget -O /var/www/html/welcome.html $TMPL/var/www/html/welcome.html
-wget -O /etc/nginx/sites-available/jitas.conf \
-    $TMPL/etc/nginx/sites-available/jitas.conf
+cp $TMPL/var/www/html/welcome.html /var/www/html/
+cp $TMPL/etc/nginx/sites-available/jitas.conf /etc/nginx/sites-available/
 
 ln -sf ../sites-available/jitas.conf /etc/nginx/sites-enabled/
 rm -f /etc/nginx/sites-enabled/default
@@ -299,8 +287,8 @@ systemctl restart nginx
 out <<< "certbox config..."
 
 mkdir -p /etc/systemd/system/certbot.service.d
-wget -O /etc/systemd/system/certbot.service.d/override.conf \
-    $TMPL/etc/systemd/system/certbot.service.d/override.conf
+cp $TMPL/etc/systemd/system/certbot.service.d/override.conf \
+    /etc/systemd/system/certbot.service.d/
 
 systemctl daemon-reload
 
