@@ -178,6 +178,8 @@ out <<< "chromium-app..."
 
 cp $TMPL/usr/local/bin/chromium-app-start /usr/local/bin/
 chmod +x /usr/local/bin/chromium-app-start
+cp $TMPL/usr/local/bin/chromium-app-instance /usr/local/bin/
+chmod +x /usr/local/bin/chromium-app-instance
 
 # ------------------------------------------------------------------------------
 # vnc
