@@ -21,16 +21,24 @@ function on_exit {
         exit 1
     else
         out <<EOF
-Installation Duration: $DURATION
-Completed successfully!
+############################################################
+#                 COMPLETED SUCCESSFULLY
+############################################################
+#
+# Installation Duration: $DURATION
 EOF
 
         if [ "$ACTIVE_SESSION" = true ]; then
             out <<EOF
-It's detected an already running session.
-Please reboot to activate new settings!
+# It's detected an already running session.
+# Please reboot to activate new settings!
 EOF
         fi
+
+        out <<EOF
+#
+############################################################
+EOF
 
         exit 0
     fi
