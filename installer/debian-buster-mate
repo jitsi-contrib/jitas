@@ -87,14 +87,11 @@ apt-get $APT_PROXY_OPTION -y install task-desktop task-mate-desktop dconf-cli
 apt-get $APT_PROXY_OPTION -y install chromium
 apt-get $APT_PROXY_OPTION -y install x11vnc pwgen git
 apt-get $APT_PROXY_OPTION -y install nginx
+apt-get $APT_PROXY_OPTION -y install v4l2loopback-dkms kmod ffmpeg
 apt-get $APT_PROXY_OPTION -y install python3-pip python3-setuptools \
     python3-wheel
 
 pip3 install websockify
-
-# set the default browser
-update-alternatives --set gnome-www-browser /usr/bin/chromium || true
-update-alternatives --set x-www-browser /usr/bin/chromium || true
 
 # ------------------------------------------------------------------------------
 # git clone
@@ -103,6 +100,19 @@ out <<< "cloning Git repo..."
 
 rm -rf $REPO
 git clone --depth=1 $REMOTE $REPO
+
+# ------------------------------------------------------------------------------
+# devices
+# ------------------------------------------------------------------------------
+out <<< "devices..."
+
+cp $TMPL/etc/modprobe.d/jitas-camera.conf /etc/modprobe.d/
+[ -z "$(egrep '^v4l2loopback' /etc/modules)" ] && \
+    echo v4l2loopback >>/etc/modules
+
+rmmod -f v4l2loopback || true
+modprobe v4l2loopback || true
+lsmod | grep v4l2loopback
 
 # ------------------------------------------------------------------------------
 # disabled desktop services
@@ -143,6 +153,15 @@ cp -arp $TMPL/etc/skel/.config /etc/skel/
 cp $TMPL/etc/skel/.zshrc /etc/skel/
 cp $TMPL/etc/skel/.vimrc /etc/skel/
 cp $TMPL/etc/skel/.tmux.conf /etc/skel/
+
+# ------------------------------------------------------------------------------
+# defaults
+# ------------------------------------------------------------------------------
+out <<< "defaults..."
+
+# set the default browser
+update-alternatives --set gnome-www-browser /usr/bin/chromium || true
+update-alternatives --set x-www-browser /usr/bin/chromium || true
 
 # ------------------------------------------------------------------------------
 # x11vnc autostart
