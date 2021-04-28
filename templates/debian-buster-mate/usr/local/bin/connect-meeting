@@ -1,0 +1,79 @@
+#!/bin/bash
+set -e
+
+TITLE="Connect to meeting"
+MEETS_FILES=$HOME/.config/jitas/pre-configured-meetings
+DEFAULT_SERVER="https://meet.jit.si"
+
+# ------------------------------------------------------------------------------
+# get pre-configured meeting list
+# ------------------------------------------------------------------------------
+if [[ -f "$MEETS_FILES" ]]; then
+    while read -r line; do
+        # skip if comment
+        [[ -n "$(echo $line | grep '^\s*#')" ]] && continue
+
+        # skip if no link
+        link=$(echo $line | egrep -o 'https*://\S*\s*$' || true)
+        [[ -z "$link" ]] && continue
+
+        # get key
+        key=$(echo "$line" | rev | sed -E 's~^\s*\S*//:s*ptth\s*~~' | rev)
+        [[ -z "$key" ]] && continue
+
+        # add to the list
+        MEET="$MEET!$key"
+    done < $MEETS_FILES
+fi
+
+# ------------------------------------------------------------------------------
+# ask for the meeting
+# ------------------------------------------------------------------------------
+ans=$(yad --title="$TITLE" --splash --borders=20 --width=400 \
+    --text="Write the meeting link or choose a pre-configured one" \
+    --form \
+      --field=" :LBL" "" \
+      --field=":CBE" "$MEET" \
+      --field=" :LBL" "" \
+    --buttons-layout=edge --button=gtk-cancel:1 --button gtk-connect:0)
+meet=$(echo "$ans" | cut -d '|' -f2)
+[[ -z "$meet" ]] && exit 1
+
+# get link from the list file if this is a pre-configured one
+line=$(egrep "^\s*$meet\s*https*://\S*\s*$" $MEETS_FILES | tail -1 || true)
+if [[ -n "$line" ]]; then
+    link=$(echo $line | egrep -o 'https*://\S*\s*$' | xargs)
+# if it is not in the list but it's a full link, use it
+elif [[ -n "$(echo $meet | grep -o 'https*://\S*$')" ]]; then
+    link=$(echo $meet)
+# if it's a word and if there is a default server, use it as room name
+elif [[ -n "$(echo $meet | egrep -o '^\S*$')" ]]; then
+    [[ -n "$DEFAULT_SERVER" ]] && \
+        link="$DEFAULT_SERVER/$meet" || \
+        exit 1
+else
+    exit 1
+fi
+
+# ------------------------------------------------------------------------------
+# customized URL
+# ------------------------------------------------------------------------------
+url=$(echo $link | egrep -o '^[^#?&]*' || true)
+config=$(echo $link | egrep -o '#[^?]*' | sed 's/^./\&/' || true)
+qs=$(echo $link | egrep -o '[?].*' || true)
+
+URL=$(cat <<EOF
+$url#\
+config.p2p.enabled=false&\
+config.disableAP=true&\
+config.disableAEC=true&\
+config.disableNS=true&\
+config.disableAGC=true&\
+config.disableHPF=true&\
+config.stereo=true\
+$config\
+$qs
+EOF
+)
+
+echo $URL

@@ -180,6 +180,8 @@ cp $TMPL/usr/local/bin/chromium-app-start /usr/local/bin/
 chmod 755 /usr/local/bin/chromium-app-start
 cp $TMPL/usr/local/bin/chromium-app-instance /usr/local/bin/
 chmod 755 /usr/local/bin/chromium-app-instance
+cp $TMPL/usr/local/bin/connect-meeting /usr/local/bin/
+chmod 755 /usr/local/bin/connect-meeting
 
 # ------------------------------------------------------------------------------
 # vnc
