@@ -78,3 +78,7 @@ The format of `URL`:
 `https://HOST-ADDRESS/novnc/?host=HOST-ADDRESS&port=6090&encrypt=1&resize=scale&password=VNC-PASSWD`
 
 ![Jitas noVNC connect](images/jitas-novnc-connect.png)
+
+##### 5.3 Connect Jitas to the meeting
+
+![Jitas meeting connect](images/jitas-connect-meeting.png)
