@@ -338,6 +338,9 @@ systemctl restart nginx
 # ------------------------------------------------------------------------------
 out <<< "certbox config..."
 
+cp $TMPL/usr/local/sbin/set-letsencrypt-cert /usr/local/sbin/
+chmod 744 /usr/local/sbin/set-letsencrypt-cert
+
 mkdir -p /etc/systemd/system/certbot.service.d
 cp $TMPL/etc/systemd/system/certbot.service.d/override.conf \
     /etc/systemd/system/certbot.service.d/
