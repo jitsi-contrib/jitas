@@ -76,4 +76,4 @@ $qs
 EOF
 )
 
-echo $URL
+exec chromium-app-instance "$URL"
