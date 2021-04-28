@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-LINK=$1
+LINK="$1"
 
 # if no link, exit
 [[ -z "$LINK" ]] && exit 1
@@ -12,10 +12,12 @@ systemctl --user start video.service
 # start the chromium app
 mkdir -p $HOME/.config/jitas-chromium
 chromium --incognito --new-window --user-data-dir=$HOME/.config/jitas-chromium \
-    --app=$LINK
+    --app="$LINK"
 
 # set above and sticky for the chromium app windows
 pid=$(pgrep -f 'chromium .* --class=jitas')
+[[ -z "$pid" ]] && exit 1
+
 for wid in $(wmctrl -lp | awk '{print $1,$3}' | grep $pid | cut -d ' ' -f1); do
     wmctrl -ir $wid -b add,above
     wmctrl -ir $wid -b add,sticky
