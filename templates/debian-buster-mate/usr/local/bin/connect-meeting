@@ -29,7 +29,7 @@ fi
 # ------------------------------------------------------------------------------
 # ask for the meeting
 # ------------------------------------------------------------------------------
-ans=$(yad --title="$TITLE" --splash --borders=20 --width=400 \
+ans=$(yad --title="$TITLE" --on-top --borders=20 --width=400 \
     --text="Write the meeting link or choose a pre-configured one" \
     --form \
       --field=" :LBL" "" \
