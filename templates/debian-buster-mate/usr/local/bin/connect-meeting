@@ -64,12 +64,30 @@ qs=$(echo $link | egrep -o '[?].*' || true)
 
 URL=$(cat <<EOF
 $url#\
-config.p2p.enabled=false&\
-config.disableAP=true&\
+interfaceConfig.HIDE_INVITE_MORE_HEADER=true&\
+config.channelLastN=1&\
 config.disableAEC=true&\
-config.disableNS=true&\
 config.disableAGC=true&\
+config.disableAP=true&\
+config.disableAudioLevels=true&\
 config.disableHPF=true&\
+config.disableInviteFunctions=true&\
+config.disableJoinLeaveSounds=true&\
+config.disableNS=true&\
+config.disableRemoteControl=true&\
+config.disableRemoteMute=true&\
+config.disableTileView=true&\
+config.enableNoAudioDetection=false&\
+config.enableNoisyMicDetection=false&\
+config.hideConferenceSubject=true&\
+config.hideParticipantsStats=true&\
+config.hideConferenceTimer=true&\
+config.hideLobbyButton=true&\
+config.iAmRecorder=true&\
+config.notifications=[]&\
+config.p2p.enabled=false&\
+config.prejoinPageEnabled=false&\
+config.requireDisplayName=false&\
 config.stereo=true\
 $config\
 $qs
