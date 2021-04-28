@@ -354,6 +354,12 @@ if [[ -z "$(id jitas 2>/dev/null)" ]]; then
     chsh -s /bin/zsh jitas
 fi
 
+# jitas-shares folder
+if [[ ! -d "/home/jitas-shares" ]]; then
+    cp -arp $TMPL/home/jitas-shares /home/
+    chown jitas:jitas /home/jitas-shares -R
+fi
+
 # ------------------------------------------------------------------------------
 # autologin on tty1
 # ------------------------------------------------------------------------------
