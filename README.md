@@ -59,3 +59,22 @@ To set the Let's Encrypt certificate, run the following commands as `root`:
 ```bash
 set-letsencrypt-cert "your-host-fqdn"
 ```
+
+#### 5. Usage
+
+##### 5.1 Connect to the meeting room
+
+Connect to a meeting room as usual. For example click this:
+[https://meet.jit.si/jitas](https://meet.jit.si/jitas)
+
+##### 5.2 Connect to Jitas server
+
+Open a second tab in your browser and connect to `Jitas` server. Each server has
+its own password created during the installation. Check the `README-JITAS.txt`
+file in your `/root` folder to learn the `Jitas` URL.
+
+The format of `URL`:
+
+`https://HOST-ADDRESS/novnc/?host=HOST-ADDRESS&port=6090&encrypt=1&resize=scale&password=VNC-PASSWD`
+
+![Jitas noVNC connect](images/jitas-novnc-connect.png)
