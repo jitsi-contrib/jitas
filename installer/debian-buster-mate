@@ -210,6 +210,7 @@ sed -i "s/___PASSWD___/$PASSWD/g" /root/README-JITAS.txt
 out <<< "skel configuration..."
 
 cp -arp $TMPL/etc/skel/.config /etc/skel/
+cp -arp $TMPL/etc/skel/Desktop /etc/skel/
 cp $TMPL/etc/skel/.zshrc /etc/skel/
 cp $TMPL/etc/skel/.vimrc /etc/skel/
 cp $TMPL/etc/skel/.tmux.conf /etc/skel/
