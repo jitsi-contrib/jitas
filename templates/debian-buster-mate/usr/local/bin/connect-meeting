@@ -70,6 +70,7 @@ userInfo.displayName="$DISPLAY_NAME"&\
 userInfo.email="$AVATAR_EMAIL"&\
 interfaceConfig.HIDE_INVITE_MORE_HEADER=true&\
 interfaceConfig.TOOLBAR_BUTTONS=["microphone","camera","chat"]&\
+interfaceConfig.TOOLBAR_TIMEOUT=1000&\
 config.channelLastN=1&\
 config.disableAEC=true&\
 config.disableAGC=true&\
