@@ -15,10 +15,8 @@ chromium --incognito --new-window --user-data-dir=$HOME/.config/jitas-chromium \
     --app="$LINK"
 
 # set above and sticky for the chromium app windows
-pid=$(pgrep -f 'chromium .* --class=jitas')
-[[ -z "$pid" ]] && exit 1
-
-for wid in $(wmctrl -lp | awk '{print $1,$3}' | grep $pid | cut -d ' ' -f1); do
+for wid in $(wmctrl -lpx | awk '{print $1,$4}' | egrep '\.jitas$' | \
+             cut -d ' ' -f1); do
     wmctrl -ir $wid -b add,above
     wmctrl -ir $wid -b add,sticky
 done
