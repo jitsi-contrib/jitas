@@ -4,6 +4,8 @@ set -e
 TITLE="Connect to meeting"
 MEETS_FILES=$HOME/.config/jitas/pre-configured-meetings
 DEFAULT_SERVER="https://meet.jit.si"
+DISPLAY_NAME="Jitas"
+AVATAR_EMAIL=""
 
 # ------------------------------------------------------------------------------
 # get pre-configured meeting list
@@ -64,7 +66,10 @@ qs=$(echo $link | egrep -o '[?].*' || true)
 
 URL=$(cat <<EOF
 $url#\
+userInfo.displayName=%22$DISPLAY_NAME%22&\
+userInfo.email=%22$AVATAR_EMAIL%22&\
 interfaceConfig.HIDE_INVITE_MORE_HEADER=true&\
+interfaceConfig.TOOLBAR_BUTTONS=%5B%22microphone%22%2C%22camera%22%5D&\
 config.channelLastN=1&\
 config.disableAEC=true&\
 config.disableAGC=true&\
@@ -84,7 +89,7 @@ config.hideParticipantsStats=true&\
 config.hideConferenceTimer=true&\
 config.hideLobbyButton=true&\
 config.iAmRecorder=true&\
-config.notifications=[]&\
+config.notifications=%5B%5D&\
 config.p2p.enabled=false&\
 config.prejoinPageEnabled=false&\
 config.requireDisplayName=false&\
