@@ -1,5 +1,17 @@
 # jitas - Jitsi Assistant
 
+### Table of contents
+
+- [1. About](#1-about)
+- [2. Prerequisites](#2-prerequisites)
+  - [2.1 Machine Features](#21-machine-features)
+  - [2.2 Distribution](#22-distribution)
+  - [2.3 Public Ports](#23-public-ports)
+- [3. Installation](#3-installation)
+- [4. Let's Encrypt support](#4-lets-encrypt-support)
+
+#### 1. About
+
 `Jitas` is a cloud-based virtual desktop environment that assists the presenter
 to share high quality materials in the Jitsi session.
 
@@ -8,21 +20,21 @@ started developing on April 26th at
 [Winning over the classroom with Jitsi](https://euhack21.bemyapp.com/)
 Hackathon.
 
-#### Prerequisites
+#### 2. Prerequisites
 
 Check the following steps before starting installation.
 
-##### Machine features
+##### 2.1 Machine Features
 
 At least 4 cores and 8 GB RAM are recommended.
 
-##### Distribution
+##### 2.2 Distribution
 
 `Jitas` currently supports only `Debian 10 Buster`. Please create or install a
 `Debian 10 Buster` server and don't install a desktop environment, only the
 standard packages...
 
-##### Public ports
+##### 2.3 Public Ports
 
 If the server is behind a firewall, open the following ports:
 
@@ -31,7 +43,7 @@ If the server is behind a firewall, open the following ports:
 - `TCP/6080`
 - `TCP/6090`
 
-#### Installation
+#### 3. Installation
 
 Run the following commands as `root`
 
@@ -40,7 +52,7 @@ wget -O debian-buster-mate https://raw.githubusercontent.com/jitsi-contrib/jitas
 bash debian-buster-mate
 ```
 
-#### Let's Encrypt support
+#### 4. Let's Encrypt Support
 
 To set the Let's Encrypt certificate, run the following commands as `root`:
 
