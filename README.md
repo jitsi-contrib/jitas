@@ -15,6 +15,14 @@
   - [5.3 Connect Jitas to the meeting](#53-connect-jitas-to-the-meeting)
   - [5.4 Play any media](#54-play-any-media)
   - [5.5 Watch from the meeting](#55-watch-from-the-meeting)
+- [6. Use cases](#6-use-cases)
+  - [6.1 Private courses](#61-private-courses)
+  - [6.2 Watching movies together](#62-watching-movies-together)
+  - [6.3 Team work](#63-team-work)
+  - [6.4 Lecturing to a large number of remote
+    students](#64-lecturing-to-a-large-number-of-remote-students)
+  - [6.5 Two teachers and one shared desktop](#65-two-teachers-and-one-shared-desktop)
+  - [6.6 No need to stay connected](#66-no-need-to-stay-connected)
 
 #### 1. About
 
@@ -102,7 +110,6 @@ Play any media using any player:
 - media from any site (Youtube. Peertube, Vimeo, Netflix etc)
 - media using any player (VLC, smplayer, mpv etc)
 
-
 ![Jitas play](images/jitas-play.png)
 
 ##### 5.5 Watch from the meeting
@@ -110,3 +117,39 @@ Play any media using any player:
 Watch it while talking with friends.
 
 ![Jitas watch](images/jitas-watch.png)
+
+#### 6. Use cases
+
+Possible use cases
+
+##### 6.1 Private courses
+
+Let's say you have a yoga or dance class and want to share high quality music
+during the lesson.
+
+##### 6.2 Watching movies together
+
+When you want to watch movies with your distant friends while talking.
+
+##### 6.3 Team work
+
+When you want to work in a remote team while using the same desktop at the same
+time. `Jitas` desktop is shareable and it can be used by many users at the same
+time.
+
+##### 6.4 Lecturing to a large number of remote students
+
+Let's say you have hundreds of students and you want to teach all of them at the
+same time. Then connect `Jitas` to many meeting rooms and start sharing the same
+lesson with all classes at the same time.
+
+##### 6.5 Two teachers and one shared desktop
+
+Let's say a lesson is taught by two teachers at the same time, alternately. Then
+the teachers can connect to the same `Jitas` server and can use the desktop
+alternately.
+
+##### 6.6 No need to stay connected
+
+Let's say there is a long movie you want to stream. You don't need to stay
+connected. Connect `Jitas`, start to play the movie and disconnect.
