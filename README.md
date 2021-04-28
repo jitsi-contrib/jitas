@@ -9,6 +9,12 @@
   - [2.3 Public Ports](#23-public-ports)
 - [3. Installation](#3-installation)
 - [4. Let's Encrypt support](#4-lets-encrypt-support)
+- [5. Usage](#5-usage)
+  - [5.1 Connect to the meeting room](#51-connect-to-the-meeting-room)
+  - [5.2 Connect to Jitas server](#52-connect-to-jitas-server)
+  - [5.3 Connect Jitas to the meeting](#53-connect-jitas-to-the-meeting)
+  - [5.4 Play any media](#54-play-any-media)
+  - [5.5 Watch from the meeting](#55-watch-from-the-meeting)
 
 #### 1. About
 
@@ -81,4 +87,26 @@ The format of `URL`:
 
 ##### 5.3 Connect Jitas to the meeting
 
+Click `Connect Meeting`, write the meeting URL or select one from the
+pre-configured list and click `connect`.
+
 ![Jitas meeting connect](images/jitas-connect-meeting.png)
+
+##### 5.4 Play any media
+
+Play any media using any player:
+
+- local audio file (mp3, wav etc)
+- local video file (mp4, avi etc)
+- livestream
+- media from any site (Youtube. Peertube, Vimeo, Netflix etc)
+- media using any player (VLC, smplayer, mpv etc)
+
+
+![Jitas play](images/jitas-play.png)
+
+##### 5.5 Watch from the meeting
+
+Watch it while talking with friends.
+
+![Jitas watch](images/jitas-watch.png)
