@@ -29,6 +29,17 @@
 `Jitas` is a cloud-based virtual desktop environment that assists the presenter
 to share high quality materials in the Jitsi session.
 
+Technically it's very similar to `Jibri` (_Jitsi Broadcasting Infrastructure_).
+
+- `Jitas` has a virtual desktop environment like `Jibri`
+- `Jitas` has virtual audio devices like `Jibri`
+- `Jitas` has virtual video devices like `Jibri`
+- `Jitas` connects to the meeting room using a customized `Chrome` instance like
+  `Jibri`
+- But `Jitas` does completely the opposite task.
+  - `Jibri` pulls audio and video from the `Jitsi` meeting room.
+  - `Jitas` pushes audio and video to the `Jitsi` meeting room.
+
 [This project](https://platform-euhack21.bemyapp.com/#/projects/607dea7c972ccc0019009868)
 started developing on April 26th at
 [Winning over the classroom with Jitsi](https://euhack21.bemyapp.com/)
