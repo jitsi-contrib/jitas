@@ -7,7 +7,7 @@
   - [2.1 Machine Features](#21-machine-features)
   - [2.2 Distribution](#22-distribution)
   - [2.3 Standard Linux Kernel](#23-standard-linux-kernel)
-  - [2.4 Public Ports](#23-public-ports)
+  - [2.4 Public Ports](#24-public-ports)
 - [3. Installation](#3-installation)
 - [4. Let's Encrypt support](#4-lets-encrypt-support)
 - [5. Usage](#5-usage)
