@@ -59,7 +59,30 @@ At least 4 cores and 8 GB RAM are recommended.
 `Debian 10 Buster` server and don't install a desktop environment, only the
 standard packages...
 
-##### 2.3 Public Ports
+##### 2.3 Standard Linux Kernel
+
+Some cloud computers use a customized kernel which has no support for some
+kernel modules. If this is the case then install the standart Linux kernel and
+reboot with it.
+
+Run the following command to check the module support
+
+```bash
+modprobe v4l2loopback
+```
+
+If there is a warning then you need to install the standard kernel. Probably the
+following commands will work but be carefull!
+
+```bash
+apt-get update
+apt-get install linux-image-amd64
+apt-get purge "linux-image*cloud*"
+# say 'no' to abort request
+reboot
+```
+
+##### 2.4 Public Ports
 
 If the server is behind a firewall, open the following ports:
 
