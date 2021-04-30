@@ -180,6 +180,8 @@ Let's say you have hundreds of students and you want to teach all of them at the
 same time. Then connect `Jitas` to many meeting rooms and start sharing the same
 lesson with all classes at the same time.
 
+[![Video](images/icon-video.png)](https://youtu.be/uvIcAVoN6cA)
+
 ##### 6.5 Two teachers and one shared desktop
 
 Let's say a lesson is taught by two teachers at the same time, alternately. Then
