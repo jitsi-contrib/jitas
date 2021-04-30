@@ -162,6 +162,8 @@ Possible use cases
 Let's say you have a yoga or dance class and want to share high quality music
 during the lesson.
 
+[![Video](images/icon-video.png)](https://youtu.be/lM-f2mdBvj0)]
+
 ##### 6.2 Watching movies together
 
 When you want to watch movies with your distant friends while talking.
