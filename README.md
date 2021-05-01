@@ -12,7 +12,7 @@
 - [4. Let's Encrypt support](#4-lets-encrypt-support)
 - [5. Usage](#5-usage)
   - [5.1 Connect to the meeting room](#51-connect-to-the-meeting-room)
-  - [5.2 Connect to Jitas server](#52-connect-to-jitas-server)
+  - [5.2 Connect to Jitas desktop](#52-connect-to-jitas-desktop)
   - [5.3 Connect Jitas to the meeting](#53-connect-jitas-to-the-meeting)
   - [5.4 Play any media](#54-play-any-media)
   - [5.5 Watch from the meeting](#55-watch-from-the-meeting)
