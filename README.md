@@ -116,11 +116,11 @@ set-letsencrypt-cert "your-host-fqdn"
 Connect to a meeting room as usual. For example click this:
 [https://meet.jit.si/jitas](https://meet.jit.si/jitas)
 
-##### 5.2 Connect to Jitas server
+##### 5.2 Connect to Jitas desktop
 
-Open a second tab in your browser and connect to `Jitas` server. Each server has
-its own password created during the installation. Check the `README-JITAS.txt`
-file in your `/root` folder to learn the `Jitas` URL.
+Open a second tab in your browser and connect to `Jitas` desktop. Each server
+has its own password created during the installation. Check the
+`README-JITAS.txt` file in your `/root` folder to learn the `Jitas` URL.
 
 The format of `URL`:
 
@@ -171,24 +171,24 @@ When you want to watch movies with your distant friends while talking.
 ##### 6.3 Team work
 
 When you want to work in a remote team while using the same desktop at the same
-time. `Jitas` desktop is shareable and it can be used by many users at the same
-time.
+time. `Jitas` desktop is shareable and it can be used by multiple users at the
+same time.
 
 ##### 6.4 Lecturing to a large number of remote students
 
 Let's say you have hundreds of students and you want to teach all of them at the
-same time. Then connect `Jitas` to many meeting rooms and start sharing the same
-lesson with all classes at the same time.
+same time. Then connect `Jitas` to multiple meeting rooms and start sharing the
+same lesson with all classes at the same time.
 
 [![Video](images/icon-video.png)](https://youtu.be/uvIcAVoN6cA)
 
 ##### 6.5 Two teachers and one shared desktop
 
 Let's say a lesson is taught by two teachers at the same time, alternately. Then
-the teachers can connect to the same `Jitas` server and can use the desktop
-alternately.
+the teachers can connect to the same `Jitas` desktop and can use it alternately.
 
 ##### 6.6 No need to stay connected
 
 Let's say there is a long movie you want to stream. You don't need to stay
-connected. Connect `Jitas`, start to play the movie and disconnect.
+connected. Connect to `Jitas` desktop, start playing the movie and disconnect
+from the desktop.
