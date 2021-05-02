@@ -103,7 +103,7 @@ bash debian-buster-mate
 
 #### 4. Let's Encrypt Support
 
-Run the following commands as `root` to set the Let's Encrypt certificate:
+Run the following command as `root` to set the Let's Encrypt certificate:
 
 ```bash
 set-letsencrypt-cert "your-host-fqdn"
