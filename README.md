@@ -155,7 +155,7 @@ Watch it while talking with friends.
 
 #### 6. Use cases
 
-Possible use cases
+Some of the possible use cases
 
 ##### 6.1 Private courses
 
@@ -170,9 +170,9 @@ When you want to watch movies with your distant friends while talking.
 
 ##### 6.3 Team work
 
-When you want to work in a remote team while using the same desktop at the same
-time. `Jitas` desktop is shareable and it can be used by multiple users at the
-same time.
+When you want to work in a remote team using the same desktop at the same time.
+`Jitas` desktop is shareable and it can be used by multiple users at the same
+time.
 
 ##### 6.4 Lecturing to a large number of remote students
 
@@ -182,7 +182,7 @@ same lesson with all classes at the same time.
 
 [![Video](images/icon-video.png)](https://youtu.be/uvIcAVoN6cA)
 
-##### 6.5 Two teachers and one shared desktop
+##### 6.5 Two teachers in the same classroom
 
 Let's say a lesson is taught by two teachers at the same time, alternately. Then
 the teachers can connect to the same `Jitas` desktop and can use it alternately.
