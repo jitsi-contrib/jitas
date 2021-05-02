@@ -57,7 +57,7 @@ At least 4 cores and 8 GB RAM are recommended.
 ##### 2.2 Distribution
 
 `Jitas` officially supports `Debian 10 Buster`. Please create or install a
-`Debian 10 Buster` server and don't install a desktop environment, only the
+`Debian 10 Buster` server and don't install the desktop environment, only the
 standard packages...
 
 ##### 2.3 Standard Linux Kernel
@@ -73,7 +73,7 @@ modprobe v4l2loopback
 ```
 
 If there is a warning then you need to install the standard kernel. Probably the
-following commands will work but be carefull!
+following commands will work but be careful!
 
 ```bash
 apt-get update
@@ -103,7 +103,7 @@ bash debian-buster-mate
 
 #### 4. Let's Encrypt Support
 
-To set the Let's Encrypt certificate, run the following commands as `root`:
+Run the following commands as `root` to set the Let's Encrypt certificate:
 
 ```bash
 set-letsencrypt-cert "your-host-fqdn"
