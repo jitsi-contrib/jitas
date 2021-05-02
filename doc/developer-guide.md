@@ -31,7 +31,7 @@ But `Jitas` does completely the opposite task.
 
 #### Main components
 
-`Jitas` contains many free and open source software components to create its own
+`Jitas` includes many free and open source software components to create its own
 environment.
 
 ##### Debian GNU/Linux
@@ -42,7 +42,7 @@ will continue in future Debian releases (_I hope_)
 
 ##### MATE Desktop Environment
 
-`MATE` selected as the first supported desktop environment. It's lightweight,
+`MATE` is selected as the first supported desktop environment. It's lightweight,
 easy to use for many users and works well in a VNC session.
 
 ##### x11vnc
