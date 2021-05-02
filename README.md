@@ -56,8 +56,8 @@ At least 4 cores and 8 GB RAM are recommended.
 
 ##### 2.2 Distribution
 
-`Jitas` officially supports `Debian 10 Buster`. Please create or install a
-`Debian 10 Buster` server and don't install the desktop environment, only the
+`Jitas` is officially supported on `Debian 10 Buster`. Please create or install
+a `Debian 10 Buster` server and don't install the desktop environment, only the
 standard packages...
 
 ##### 2.3 Standard Linux Kernel
