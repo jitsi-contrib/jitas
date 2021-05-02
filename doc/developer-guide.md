@@ -54,7 +54,7 @@ easy to use for many users and works well in a VNC session.
 `noVNC` is both an HTML VNC client JavaScript library and an application built
 on top of that library.
 
-`Websockify` is a part of `noVNC` project. It`s a webSocket to TCP proxy/bridge.
+`Websockify` is a part of `noVNC` project. It`s a websocket to TCP proxy/bridge.
 
 `noVNC` and `websockify` allow users to connect to the `x11vnc` session using
 web browsers. In this way, users can connect to `Jitas` desktop without the need
@@ -62,7 +62,7 @@ for a special client application.
 
 #### References
 
-- [Debain](https://www.debian.org/)
+- [Debian](https://www.debian.org/)
 - [MATE Desktop Environment](https://mate-desktop.org/)
 - [x11vnc](https://github.com/LibVNC/x11vnc)
 - [noVNC](https://github.com/novnc/noVNC)
