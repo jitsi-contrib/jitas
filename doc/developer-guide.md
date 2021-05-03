@@ -28,8 +28,8 @@ to participate to the development process easily.
   - [4.6 Virtual microphone](#46-virtual-microphone)
   - [4.7 Desktop capturing](#47-desktop-capturing)
   - [4.8 Private Chromium instance](#48-private-chromium-instance)
-  - [4.9 Customized connection to the Jitsi meeting
-    room](#49-customized-connection-to-the-jitsi-meeting-room)
+  - [4.9 Customized connection for the Jitsi meeting
+    room](#49-customized-connection-for-the-jitsi-meeting-room)
   - [4.10 Pre-configured meetings](#410-pre-configured-meetings)
   - [4.11 Public and private files folder](#411-public-and-private-files-folder)
 - [References](#references)
@@ -211,7 +211,7 @@ See
 and
 [chromium-app-instance](../templates/debian-buster-mate/usr/local/bin/chromium-app-instance)
 
-##### 4.9 Customized connection to the Jitsi meeting room
+##### 4.9 Customized connection for the Jitsi meeting room
 
 [connect-meeting](../templates/debian-buster-mate/usr/local/bin/connect-meeting)
 is used when connecting to a `Jitsi` meeting room.
