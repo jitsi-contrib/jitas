@@ -95,7 +95,7 @@ project to capture the screen as a stream and to bind it to the virtual webcam.
 
 ##### 3.8 dconf
 
-`dconf` is a low-level configuration system for GNOME or GONME-based desktop
+`dconf` is a low-level configuration system for GNOME or GNOME-based desktop
 environment. It's used to customize the desktop environment.
 
 ##### 3.9 YAD
@@ -130,7 +130,7 @@ meeting room.
 - [websockify](https://github.com/novnc/websockify)
 - [v4l2loopback](https://github.com/umlaeute/v4l2loopback)
 - [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
-- [ffmpeg](https://ffmpeg.org/)
+- [FFmpeg](https://ffmpeg.org/)
 - [dconf](https://wiki.gnome.org/Projects/dconf)
 - [YAD](https://github.com/v1cont/yad)
 - [wmctrl](http://tripie.sweb.cz/utils/wmctrl/)
