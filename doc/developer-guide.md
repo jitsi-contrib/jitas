@@ -28,6 +28,9 @@ to participate to the development process easily.
   - [4.6 Virtual microphone](#46-virtual-microphone)
   - [4.7 Desktop capturing](#47-desktop-capturing)
   - [4.8 Private Chromium instance](#48-private-chromium-instance)
+  - [4.9 Customized connection to the Jitsi meeting
+    room](#49-customized-connection-to-the-jitsi-meeting-room)
+  - [4.10 Pre-configured meetings](#410-pre-configured-meetings)
 - [References](#references)
 
 ---
@@ -206,6 +209,19 @@ See
 [chromium-app-start](../templates/debian-buster-mate/usr/local/bin/chromium-app-start)
 and
 [chromium-app-instance](../templates/debian-buster-mate/usr/local/bin/chromium-app-instance)
+
+##### 4.9 Customized connection to the Jitsi meeting room
+
+[connect-meeting](../templates/debian-buster-mate/usr/local/bin/connect-meeting)
+is used when connecting to a `Jitsi` meeting room.
+[connect-meeting](../templates/debian-buster-mate/usr/local/bin/connect-meeting)
+customizes heavily the connection URL.
+
+##### 4.10 Pre-configured meetings
+
+[.config/jitas/pre-configured-meetings](../templates/debian-buster-mate/etc/skel/.config/jitas/pre-configured-meetings)
+contains the list of pre-configured meetings. The user can connect to these
+meeting room without typing the full address.
 
 ---
 
