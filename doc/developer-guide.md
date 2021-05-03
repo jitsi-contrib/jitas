@@ -134,6 +134,6 @@ meeting room.
 - [dconf](https://wiki.gnome.org/Projects/dconf)
 - [YAD](https://github.com/v1cont/yad)
 - [wmctrl](http://tripie.sweb.cz/utils/wmctrl/)
-- [Chromium flags](https://peter.sh/experiments/chromium-command-line-switches/)
+- [Chromium](http://www.chromium.org/)
 - [systemd](https://systemd.io/)
 - [nginx](https://nginx.org/en/)
