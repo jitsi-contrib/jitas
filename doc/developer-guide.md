@@ -31,6 +31,7 @@ to participate to the development process easily.
   - [4.9 Customized connection to the Jitsi meeting
     room](#49-customized-connection-to-the-jitsi-meeting-room)
   - [4.10 Pre-configured meetings](#410-pre-configured-meetings)
+  - [4.11 Public and private files folder](#411-public-and-private-files-folder)
 - [References](#references)
 
 ---
