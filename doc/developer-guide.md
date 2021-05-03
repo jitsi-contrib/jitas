@@ -223,6 +223,16 @@ customizes heavily the connection URL.
 contains the list of pre-configured meetings. The user can connect to these
 meeting room without typing the full address.
 
+##### 4.11 Public and private files folder
+
+Users can share files publicly or privately by putting them in the related
+folders.
+
+See
+[Public README](../templates/debian-buster-mate/home/jitas-shares/public/README.txt)
+and
+[Private README](../templates/debian-buster-mate/home/jitas-shares/private/README.txt)
+
 ---
 
 #### References
