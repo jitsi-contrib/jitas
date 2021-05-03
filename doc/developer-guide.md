@@ -139,12 +139,12 @@ This part describes processes and methods used in `Jitas`
 ##### 4.1 Deployment
 
 `Jitas` environment is created using a
-[deployment script](installer/debian-buster-mate). It installs all needed
+[deployment script](../installer/debian-buster-mate). It installs all needed
 packages and tools, configures the environment and start to run the system.
 
 All developed scripts, customized configuration and used files are found in the
-[templates](templates/debian-buster-mate) folder according to their destination
-locations.
+[templates](../templates/debian-buster-mate) folder according to their
+destination locations.
 
 `Debian 10 Buster` is officially supported. Don't install any desktop
 environment to this server, only the standard packages...
