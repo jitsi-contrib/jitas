@@ -6,7 +6,7 @@ to participate to the development process easily.
 - [1. About](#1-about)
 - [2. Similarities with Jibri](#2-similarities-with-jibri)
 - [3. Main components](#3-main-components)
-  - [3.1 Debian GNU/Linux](#31-debian-gnu-linux)
+  - [3.1 Debian GNU/Linux](#31-debian-gnulinux)
   - [3.2 MATE Desktop Environment](#32-mate-desktop-environment)
   - [3.3-x11vnc](#33-x11vnc)
   - [3.4 noVNC and websockify](#34-novnc-and-websockify)
