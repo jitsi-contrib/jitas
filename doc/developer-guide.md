@@ -12,7 +12,7 @@ to participate to the development process easily.
   - [3.4 noVNC and websockify](#34-novnc-and-websockify)
   - [3.5 v4l2loopback](#35-v4l2loopback)
   - [3.6 PulseAudio](#36-pulseaudio)
-  - [3.7 FFmpeg]((#37-ffmpeg)
+  - [3.7 FFmpeg](#37-ffmpeg)
   - [3.8 dconf](#38-dconf)
   - [3.9 YAD](#39-yad)
   - [3.10 wmctrl](#310-wmctrl)
