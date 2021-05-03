@@ -22,6 +22,10 @@ to participate to the development process easily.
 - [4. Processes and methods](#4-processes-and-methods)
   - [4.1 Deployment](#41-deployment)
   - [4.2 Auto login](#42-auto-login)
+  - [4.3 Autostarted user services](#43-autostarted-user-services)
+  - [4.4 User scripts](#44-user-scripts)
+  - [4.5 Virtual webcam](#45-virtual-webcam)
+  - [4.6 Virtual microphone](#46-virtual-microphone)
 - [References](#references)
 
 ---
@@ -140,7 +144,7 @@ This part describes processes and methods used in `Jitas`
 
 `Jitas` environment is created using a
 [deployment script](../installer/debian-buster-mate). It installs all needed
-packages and tools, configures the environment and start to run the system.
+packages and tools, configures the environment and starts the system.
 
 All developed scripts, customized configuration and used files are found in the
 [templates](../templates/debian-buster-mate) folder according to their
@@ -152,6 +156,37 @@ environment to this server, only the standard packages...
 ##### 4.2 Auto login
 
 `Jitas` starts the desktop using a customized `systemd` config.
+
+See
+[getty override](../templates/debian-buster-mate/etc/systemd/system/getty@tty1.service.d/override.conf)
+
+##### 4.3 Autostarted user services
+
+All user services are started when the desktop is started and stopped when the
+desktop is closed.
+
+See
+[user systemd](../templates/debian-buster-mate/etc/skel/.config/systemd/user)
+for more details.
+
+##### 4.4 User scripts
+
+All user scripts are in
+[/usr/local/bin](../templates/debian-buster-mate/usr/local/bin) folder.
+
+##### 4.5 Virtual webcam
+
+The virtual webcam device is created using `v4l2loopback` module.
+
+See
+[jitas-camera](../templates/debian-buster-mate/etc/modprobe.d/jitas-camera.conf)
+
+##### 4.6 Virtual microphone
+
+The virtual microphone and playback devices are created using `PulseAudio`. All
+real sound cards are disabled if any...
+
+See [audio-start](../templates/debian-buster-mate/usr/local/bin/audio-start)
 
 ---
 
