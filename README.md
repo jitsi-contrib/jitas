@@ -41,6 +41,8 @@ Technically it's very similar to `Jibri` (_Jitsi Broadcasting Infrastructure_).
   - `Jibri` pulls audio and video from the `Jitsi` meeting room.
   - `Jitas` pushes audio and video to the `Jitsi` meeting room.
 
+See [developer guide](doc/developer-guide.md) for more details.
+
 [This project](https://platform-euhack21.bemyapp.com/#/projects/607dea7c972ccc0019009868)
 started developing on April 26th at
 [Winning over the classroom with Jitsi](https://euhack21.bemyapp.com/)
