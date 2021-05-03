@@ -220,9 +220,11 @@ the connection URL.
 
 ##### 4.10 Pre-configured meetings
 
-[.config/jitas/pre-configured-meetings](../templates/debian-buster-mate/etc/skel/.config/jitas/pre-configured-meetings)
-contains the list of pre-configured meetings. The user can connect to these
-meeting room without typing the full address.
+The
+[pre-configured-meetings](../templates/debian-buster-mate/etc/skel/.config/jitas/pre-configured-meetings)
+file (_which is in `.config/jitas` of user's home_) contains the list of
+pre-configured meetings. The user can connect to these meeting rooms without
+typing the full address.
 
 ##### 4.11 Public and private files folder
 
