@@ -26,6 +26,8 @@ to participate to the development process easily.
   - [4.4 User scripts](#44-user-scripts)
   - [4.5 Virtual webcam](#45-virtual-webcam)
   - [4.6 Virtual microphone](#46-virtual-microphone)
+  - [4.7 Desktop capturing](#47-desktop-capturing)
+  - [4.8 Private Chromium instance](#48-private-chromium-instance)
 - [References](#references)
 
 ---
@@ -187,6 +189,23 @@ The virtual microphone and playback devices are created using `PulseAudio`. All
 real sound cards are disabled if any...
 
 See [audio-start](../templates/debian-buster-mate/usr/local/bin/audio-start)
+
+##### 4.7 Desktop capturing
+
+[video-start](../templates/debian-buster-mate/usr/local/bin/video-start)
+captures the desktop screen. It only run when connecting to a meeting and stops
+when all meeting are finished. The desktop capturing is a very CPU intensive
+process and therefore it's not a good idea to run it all the time.
+
+##### 4.8 Private Chromium instance
+
+A private Chromium instance is used when connecting to the meetings. This
+instance uses a seperate config folder to avoid user errors.
+
+See
+[chromium-app-start](../templates/debian-buster-mate/usr/local/bin/chromium-app-start)
+and
+[chromium-app-instance](../templates/debian-buster-mate/usr/local/bin/chromium-app-instance)
 
 ---
 
