@@ -19,6 +19,9 @@ to participate to the development process easily.
   - [3.11 Chromium](#311-chromium)
   - [3.12 systemd](#312-systemd)
   - [3.13 nginx](#313-nginx)
+- [4. Processes and methods](#4-processes-and-methods)
+  - [4.1 Deployment](#41-deployment)
+  - [4.2 Auto login](#42-auto-login)
 - [References](#references)
 
 #### 1. About
@@ -58,7 +61,7 @@ environment.
 environment. `Debian 10 Buster` is the officially supported distro and support
 will continue in future Debian releases (_I hope_)
 
-##### 3.2 MATE Desktop Environment
+##### 3.2 MATE desktop environment
 
 `MATE` is selected as the first supported desktop environment. It's lightweight,
 easy to use for many users and works well in a VNC session.
@@ -95,7 +98,7 @@ project to capture the screen as a stream and to bind it to the virtual webcam.
 
 ##### 3.8 dconf
 
-`dconf` is a low-level configuration system for GNOME or GNOME-based desktop
+`dconf` is a low-level configuration system for GNOME and GNOME-based desktop
 environment. It's used to customize the desktop environment.
 
 ##### 3.9 YAD
@@ -105,8 +108,8 @@ It's used to create the GUI of the developed tools.
 
 ##### 3.10 wmctrl
 
-`wmctrl` is a tool that can be used to interact with an X Window manager. It's
-used to customize the window behaviours of some applications.
+`wmctrl` is a tool that can be used to interact with X Window manager. It's used
+to customize the window behaviours of some applications.
 
 ##### 3.11 Chromium
 
@@ -120,6 +123,27 @@ meeting room.
 ##### 3.13 nginx
 
 `nginx` is the web server used in this project.
+
+#### 4. Processes and methods
+
+This part describes processes and methods used in `Jitas`
+
+##### 4.1 Deployment
+
+`Jitas` environment is created using a
+[deployment script](installer/debian-buster-mate). It installs all needed
+packages and tools, configures the environment and start to run the system.
+
+All developed scripts, customized configuration and used files are found in the
+[templates](templates/debian-buster-mate) folder according to their destination
+locations.
+
+`Debian 10 Buster` is officially supported. Don't install any desktop
+environment to this server, only the standard packages...
+
+##### 4.2 Auto login
+
+`Jitas` starts the desktop using a customized `systemd` config.
 
 #### References
 
