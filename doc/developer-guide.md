@@ -24,6 +24,8 @@ to participate to the development process easily.
   - [4.2 Auto login](#42-auto-login)
 - [References](#references)
 
+---
+
 #### 1. About
 
 `Jitas` is a cloud-based virtual desktop environment that assists the presenter
@@ -33,6 +35,8 @@ devices, customized desktop environment, free and open source softwares,
 developed tools/scripts/applications and highly customized configurations.
 
 All components of `Jitas` are free and open source.
+
+---
 
 #### 2. Similarities with Jibri
 
@@ -49,6 +53,8 @@ But `Jitas` does completely the opposite task.
 
 - `Jibri` pulls audio and video from the `Jitsi` meeting room.
 - `Jitas` pushes audio and video to the `Jitsi` meeting room.
+
+---
 
 #### 3. Main components
 
@@ -124,6 +130,8 @@ meeting room.
 
 `nginx` is the web server used in this project.
 
+---
+
 #### 4. Processes and methods
 
 This part describes processes and methods used in `Jitas`
@@ -144,6 +152,8 @@ environment to this server, only the standard packages...
 ##### 4.2 Auto login
 
 `Jitas` starts the desktop using a customized `systemd` config.
+
+---
 
 #### References
 
