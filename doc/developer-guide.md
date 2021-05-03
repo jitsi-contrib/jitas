@@ -1,6 +1,6 @@
 # Developer Guide
 
-This document is to help develepers to understand the `Jitas` infrastructure and
+This document is to help developers to understand the `Jitas` infrastructure and
 to participate to the development process easily.
 
 - [1. About](#1-about)
@@ -10,6 +10,16 @@ to participate to the development process easily.
   - [3.2 MATE Desktop Environment](#32-mate-desktop-environment)
   - [3.3-x11vnc](#33-x11vnc)
   - [3.4 noVNC and websockify](#34-novnc-and-websockify)
+  - [3.5 v4l2loopback](#35-v4l2loopback)
+  - [3.6 PulseAudio](#36-pulseaudio)
+  - [3.7 FFmpeg]((#37-ffmpeg)
+  - [3.8 dconf](#38-dconf)
+  - [3.9 YAD](#39-yad)
+  - [3.10 wmctrl](#310-wmctrl)
+  - [3.11 Chromium](#311-chromium)
+  - [3.12 systemd](#312-systemd)
+  - [3.13 nginx](#313-nginx)
+- [References](#references)
 
 #### 1. About
 
@@ -68,6 +78,49 @@ on top of that library.
 web browsers. In this way, users can connect to `Jitas` desktop without the need
 for a special client application.
 
+##### 3.5 v4l2loopback
+
+This is a kernel module. It allows us to create "_virtual video devices_".
+
+##### 3.6 PulseAudio
+
+`PulseAudio` is a sound system for POSIX OSes. It's used in this project to
+create virtual audio devices and to manage them.
+
+##### 3.7 FFmpeg
+
+`FFmpeg` is the leading multimedia framework, able to decode, encode, transcode,
+mux, demux, stream, filter and play pretty much anything. It's used in this
+project to capture the screen as a stream and to bind it to the virtual webcam.
+
+##### 3.8 dconf
+
+`dconf` is a low-level configuration system for GNOME or GONME-based desktop
+environment. It's used to customize the desktop environment.
+
+##### 3.9 YAD
+
+`YAD` allows us to display GTK+ dialog boxes from command line or shell scripts.
+It's used to create the GUI of the developed tools.
+
+##### 3.10 wmctrl
+
+`wmctrl` is a tool that can be used to interact with an X Window manager. It's
+used to customize the window behaviours of some applications.
+
+##### 3.11 Chromium
+
+A customized instance of `Chromium` is used when connecting to the `Jitsi`
+meeting room.
+
+##### 3.12 systemd
+
+`systemd` is used to convert the developed scripts to system services.
+
+##### 3.13 nginx
+
+`nginx` is the web server used in this project.
+
 #### References
 
 - [Debian](https://www.debian.org/)
@@ -75,7 +128,12 @@ for a special client application.
 - [x11vnc](https://github.com/LibVNC/x11vnc)
 - [noVNC](https://github.com/novnc/noVNC)
 - [websockify](https://github.com/novnc/websockify)
+- [v4l2loopback](https://github.com/umlaeute/v4l2loopback)
 - [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
-- [ALSA](https://www.alsa-project.org/wiki/Main_Page)
+- [ffmpeg](https://ffmpeg.org/)
+- [dconf](https://wiki.gnome.org/Projects/dconf)
 - [YAD](https://github.com/v1cont/yad)
+- [wmctrl](http://tripie.sweb.cz/utils/wmctrl/)
 - [Chromium flags](https://peter.sh/experiments/chromium-command-line-switches/)
+- [systemd](https://systemd.io/)
+- [nginx](https://nginx.org/en/)
