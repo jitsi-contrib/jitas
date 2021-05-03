@@ -213,10 +213,10 @@ and
 
 ##### 4.9 Customized connection for the Jitsi meeting room
 
+The
 [connect-meeting](../templates/debian-buster-mate/usr/local/bin/connect-meeting)
-is used when connecting to a `Jitsi` meeting room.
-[connect-meeting](../templates/debian-buster-mate/usr/local/bin/connect-meeting)
-customizes heavily the connection URL.
+script is used when connecting to a `Jitsi` meeting room. It customizes heavily
+the connection URL.
 
 ##### 4.10 Pre-configured meetings
 
