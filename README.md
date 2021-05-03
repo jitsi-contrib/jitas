@@ -37,9 +37,11 @@ Technically it's very similar to `Jibri` (_Jitsi Broadcasting Infrastructure_).
 - `Jitas` has virtual video devices like `Jibri`
 - `Jitas` connects to the meeting room using a customized `Chromium` instance
   like `Jibri`
-- But `Jitas` does completely the opposite task.
-  - `Jibri` pulls audio and video from the `Jitsi` meeting room.
-  - `Jitas` pushes audio and video to the `Jitsi` meeting room.
+
+But `Jitas` does completely the opposite task.
+
+- `Jibri` pulls audio and video from the `Jitsi` meeting room.
+- `Jitas` pushes audio and video to the `Jitsi` meeting room.
 
 See [developer guide](doc/developer-guide.md) for more details.
 
