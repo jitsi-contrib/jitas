@@ -61,11 +61,12 @@ fi
 # customized URL
 # ------------------------------------------------------------------------------
 url=$(echo $link | egrep -o '^[^#?&]*' || true)
-config=$(echo $link | egrep -o '#[^?]*' | sed 's/^./\&/' || true)
-qs=$(echo $link | egrep -o '[?].*' || true)
+qs=$(echo $link | egrep -o '[?][^#]*' || true)
+config=$(echo $link | egrep -o '#.*' | sed 's/^./\&/' || true)
 
 URL=$(cat <<EOF
-$url#\
+$url\
+$qs#\
 userInfo.displayName="$DISPLAY_NAME"&\
 userInfo.email="$AVATAR_EMAIL"&\
 interfaceConfig.HIDE_INVITE_MORE_HEADER=true&\
@@ -95,8 +96,7 @@ config.p2p.enabled=false&\
 config.prejoinPageEnabled=false&\
 config.requireDisplayName=false&\
 config.stereo=true\
-$config\
-$qs
+$config
 EOF
 )
 
