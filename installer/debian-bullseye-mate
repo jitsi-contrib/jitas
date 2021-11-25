@@ -1,0 +1,391 @@
+#!/bin/bash
+set -e
+
+# ------------------------------------------------------------------------------
+# output format
+# ------------------------------------------------------------------------------
+out() {
+    printf "\n"
+
+    while IFS= read -r line; do
+        printf "\033[0;31m>>>\033[0m \033[0;33m%s\033[0m\n" "$line"
+    done
+}
+
+# ------------------------------------------------------------------------------
+# trap on_exit
+# ------------------------------------------------------------------------------
+function on_exit {
+    if [[ "$COMPLETED" != true ]]; then
+        out <<< "Something went wrong. Not completed!"
+        exit 1
+    else
+        cp $TMPL/var/www/html/index.html /var/www/html/index.html
+
+        out <<EOF
+############################################################
+                   COMPLETED SUCCESSFULLY
+############################################################
+
+Installation Duration: $DURATION
+VNC password: $PASSWD
+
+check README-JITAS.txt file or GitHub repo to learn
+how to connect
+
+GitHub: https://github.com/jitsi-contrib/jitas
+EOF
+
+        if [[ "$ACTIVE_SESSION" = true ]]; then
+            out <<EOF
+It's detected an already running session.
+Please reboot to activate new settings!
+EOF
+        fi
+
+        out <<EOF
+############################################################
+EOF
+
+        exit 0
+    fi
+}
+
+COMPLETED=false
+trap on_exit EXIT
+
+# ------------------------------------------------------------------------------
+# environment
+# ------------------------------------------------------------------------------
+export START_TIME=$(date +%s)
+export APT_PROXY_OPTION=$APT_PROXY_OPTION
+export DEBIAN_FRONTEND=noninteractive
+export BASEDIR=$(pwd)
+export REMOTE=https://github.com/jitsi-contrib/jitas.git
+export REPO=/tmp/jitas-repo
+export TMPL=$REPO/templates/debian-bullseye-mate
+
+# ------------------------------------------------------------------------------
+# distro check
+# ------------------------------------------------------------------------------
+out <<< "distro checking..."
+
+DISTRO=$(lsb_release -c | cut -d: -f2 | xargs)
+if [[ "$DISTRO" != "bullseye" ]]; then
+    out <<< "unsupported distro"
+    exit 1
+fi
+
+# ------------------------------------------------------------------------------
+# packages
+# ------------------------------------------------------------------------------
+out <<< "installing packages..."
+
+for i in $(seq 3); do
+    apt-get -y --allow-releaseinfo-change update && sleep 3 && break
+done
+
+apt-get $APT_PROXY_OPTION -y install apt-utils \
+    -o Dpkg::Options::="--force-confdef" \
+    -o Dpkg::Options::="--force-confold"
+apt-get $APT_PROXY_OPTION -y upgrade \
+    -o Dpkg::Options::="--force-confdef" \
+    -o Dpkg::Options::="--force-confold"
+apt-get -y autoremove --purge
+
+apt-get $APT_PROXY_OPTION -y install apt-transport-https gnupg
+apt-get $APT_PROXY_OPTION -y install wget curl git rsync
+apt-get $APT_PROXY_OPTION -y install zsh tmux vim ack autojump htop
+apt-get $APT_PROXY_OPTION -y install ssl-cert ca-certificates openssl
+apt-get $APT_PROXY_OPTION -y install task-desktop task-mate-desktop dconf-cli
+apt-get $APT_PROXY_OPTION -y install chromium vlc totem
+apt-get $APT_PROXY_OPTION -y install ffmpeg pavucontrol
+apt-get $APT_PROXY_OPTION -y install x11vnc pwgen
+apt-get $APT_PROXY_OPTION -y install wmctrl xdotool yad jq
+apt-get $APT_PROXY_OPTION -y install nginx certbot
+apt-get $APT_PROXY_OPTION -y install kmod v4l2loopback-dkms
+apt-get $APT_PROXY_OPTION -y install python3-pip python3-setuptools \
+    python3-wheel
+
+pip3 install websockify
+
+apt-get -y purge upower || true
+apt-get -y autoremove --purge
+
+# ------------------------------------------------------------------------------
+# git clone
+# ------------------------------------------------------------------------------
+out <<< "cloning Git repo..."
+
+rm -rf $REPO
+git clone --depth=1 $REMOTE $REPO
+
+# ------------------------------------------------------------------------------
+# devices
+# ------------------------------------------------------------------------------
+out <<< "devices..."
+
+# dummy audio
+cp $TMPL/usr/local/bin/audio-start /usr/local/bin/
+chmod 755 /usr/local/bin/audio-start
+
+# virtual camera
+cp $TMPL/etc/modprobe.d/jitas-camera.conf /etc/modprobe.d/
+[ -z "$(egrep '^v4l2loopback' /etc/modules)" ] && \
+    echo v4l2loopback >>/etc/modules
+
+rmmod -f v4l2loopback || true
+modprobe v4l2loopback || true
+lsmod | grep v4l2loopback
+
+cp $TMPL/usr/local/bin/video-start /usr/local/bin/
+chmod 755 /usr/local/bin/video-start
+
+# ------------------------------------------------------------------------------
+# disabled desktop services
+# ------------------------------------------------------------------------------
+out <<< "disabling some desktop services..."
+
+systemctl stop lightdm.service
+systemctl disable lightdm.service
+
+systemctl stop ModemManager.service
+systemctl disable ModemManager.service
+
+systemctl stop wpa_supplicant.service
+systemctl disable wpa_supplicant.service
+
+systemctl stop NetworkManager.service
+systemctl disable NetworkManager.service
+
+# ------------------------------------------------------------------------------
+# dconf
+# ------------------------------------------------------------------------------
+out <<< "dconf configuration..."
+
+mkdir -p /etc/dconf/profile
+mkdir -p /etc/dconf/db/jitas.d
+
+cp $TMPL/etc/dconf/profile/user /etc/dconf/profile/
+cp $TMPL/etc/dconf/db/jitas.d/* /etc/dconf/db/jitas.d/
+
+dconf update
+
+# ------------------------------------------------------------------------------
+# chromium-app
+# ------------------------------------------------------------------------------
+out <<< "chromium-app..."
+
+cp $TMPL/usr/local/bin/chromium-app-start /usr/local/bin/
+chmod 755 /usr/local/bin/chromium-app-start
+cp $TMPL/usr/local/bin/chromium-app-instance /usr/local/bin/
+chmod 755 /usr/local/bin/chromium-app-instance
+cp $TMPL/usr/local/bin/connect-meeting /usr/local/bin/
+chmod 755 /usr/local/bin/connect-meeting
+
+# ------------------------------------------------------------------------------
+# vnc
+# ------------------------------------------------------------------------------
+out <<< "VNC..."
+
+cp $TMPL/usr/local/bin/vnc-start /usr/local/bin/
+chmod 755 /usr/local/bin/vnc-start
+
+# vnc password
+if [[ -f "/root/README-JITAS.txt" ]]; then
+    PASSWD=$(egrep -i '^Default VNC password:' /root/README-JITAS.txt | \
+        cut -d: -f2 | xargs)
+fi
+[[ -z "$PASSWD" ]] && PASSWD=$(pwgen -B 12)
+
+mkdir -p /etc/skel/.vnc
+x11vnc -storepasswd $PASSWD /etc/skel/.vnc/passwd
+
+[[ -f "/root/README-JITAS.txt" ]] && \
+    mv /root/README-JITAS.txt /root/README-JITAS.txt.$(date +'%Y-%m-%d-%H%M%S')
+cp $TMPL/root/README-JITAS.txt /root/
+sed -i "s/___PASSWD___/$PASSWD/g" /root/README-JITAS.txt
+
+# ------------------------------------------------------------------------------
+# skel
+# ------------------------------------------------------------------------------
+out <<< "skel configuration..."
+
+cp -arp $TMPL/etc/skel/.config /etc/skel/
+cp -arp $TMPL/etc/skel/Desktop /etc/skel/
+cp $TMPL/etc/skel/.zshrc /etc/skel/
+cp $TMPL/etc/skel/.vimrc /etc/skel/
+cp $TMPL/etc/skel/.tmux.conf /etc/skel/
+
+# ------------------------------------------------------------------------------
+# default apps
+# ------------------------------------------------------------------------------
+out <<< "default apps..."
+
+# set the default browser
+update-alternatives --set gnome-www-browser /usr/bin/chromium || true
+update-alternatives --set x-www-browser /usr/bin/chromium || true
+
+# ------------------------------------------------------------------------------
+# self-signed certificates
+# ------------------------------------------------------------------------------
+out <<< "self-signed certificate..."
+
+# the CA key and the CA certificate
+[[ ! -d "/root/jitas-ssl" ]] && mkdir /root/jitas-ssl
+
+if [[ ! -f "/root/jitas-ssl/jitas-ca.pem" ]]; then
+    cd /root/jitas-ssl
+    rm -f jitas-ca.key
+
+    DATE=$(date +"%Y%m%d%H%M%S")
+    openssl req -nodes -new -x509 -days 10950 \
+        -keyout jitas-ca.key -out jitas-ca.pem \
+        -subj "/O=jitas/OU=CA/CN=jitas $DATE-$RANDOM"
+fi
+
+# self-signed certificate for the jitas domain
+cd /root/jitas-ssl
+rm -f /root/jitas-ssl/ssl-jitas.*
+
+# the extension file for multiple hosts:
+cat >ssl-jitas.ext <<EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+EOF
+
+HOSTNAME_SHORT=$(hostname)
+HOSTNAME_FQDN=$(hostname -f)
+
+echo "DNS.1 = $HOSTNAME_SHORT" >>ssl-jitas.ext
+
+if [[ -n "$HOSTNAME_FQDN" ]] && [[ "$HOSTNAME_SHORT" != "$HOSTNAME_FQDN" ]]
+then
+    echo "DNS.2 = $HOSTNAME_FQDN" >>ssl-jitas.ext
+else
+    HOSTNAME_FQDN=$HOSTNAME_SHORT
+fi
+
+i=1
+for ip in $(hostname -I); do
+    echo "IP.$i = $ip" >>ssl-jitas.ext
+    ((i = i + 1))
+done
+
+# the jitas key and the jitas certificate
+openssl req -nodes -newkey rsa:2048 \
+    -keyout ssl-jitas.key -out ssl-jitas.csr \
+    -subj "/O=jitas/OU=TLS/CN=$HOSTNAME_FQDN"
+openssl x509 -req -CA jitas-ca.pem -CAkey jitas-ca.key -CAcreateserial \
+    -days 10950 -in ssl-jitas.csr -out ssl-jitas.pem \
+    -extfile ssl-jitas.ext
+
+# copy into /etc/ssl
+cp ssl-jitas.pem /etc/ssl/certs/
+cp ssl-jitas.key /etc/ssl/private/
+
+# ------------------------------------------------------------------------------
+# websockify
+# ------------------------------------------------------------------------------
+out <<< "websockify config..."
+
+cp $TMPL/usr/local/sbin/websockify-unsecure /usr/local/sbin/
+chmod 744 /usr/local/sbin/websockify-unsecure
+
+cp $TMPL/usr/local/sbin/websockify-secure /usr/local/sbin/
+chmod 744 /usr/local/sbin/websockify-secure
+
+cp $TMPL/etc/systemd/system/websockify-unsecure.service /etc/systemd/system/
+cp $TMPL/etc/systemd/system/websockify-secure.service /etc/systemd/system/
+
+systemctl daemon-reload
+systemctl enable websockify-unsecure.service
+systemctl start websockify-unsecure.service
+systemctl enable websockify-secure.service
+systemctl start websockify-secure.service
+
+# ------------------------------------------------------------------------------
+# novnc
+# ------------------------------------------------------------------------------
+out <<< "novnc config..."
+
+if [[ -d "/var/www/novnc" ]]; then
+    cd /var/www/novnc
+    git pull
+else
+    git clone --depth=1 https://github.com/novnc/noVNC.git /var/www/novnc
+fi
+
+# ------------------------------------------------------------------------------
+# nginx
+# ------------------------------------------------------------------------------
+out <<< "nginx config..."
+
+cp /root/jitas-ssl/jitas-ca.pem /var/www/html/
+cp $TMPL/etc/nginx/sites-available/jitas.conf /etc/nginx/sites-available/
+
+ln -sf ../sites-available/jitas.conf /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+
+systemctl restart nginx
+
+# ------------------------------------------------------------------------------
+# certbot
+# ------------------------------------------------------------------------------
+out <<< "certbox config..."
+
+cp $TMPL/usr/local/sbin/set-letsencrypt-cert /usr/local/sbin/
+chmod 744 /usr/local/sbin/set-letsencrypt-cert
+
+mkdir -p /etc/systemd/system/certbot.service.d
+cp $TMPL/etc/systemd/system/certbot.service.d/override.conf \
+    /etc/systemd/system/certbot.service.d/
+
+systemctl daemon-reload
+
+# ------------------------------------------------------------------------------
+# user jitas
+# ------------------------------------------------------------------------------
+out <<< "jitas account..."
+
+# adduser jitas
+if [[ -z "$(id jitas 2>/dev/null)" ]]; then
+    adduser jitas --disabled-password --gecos ""
+    adduser jitas audio
+    adduser jitas video
+    chsh -s /bin/zsh jitas
+fi
+
+# jitas-shares folder
+if [[ ! -d "/home/jitas-shares" ]]; then
+    cp -arp $TMPL/home/jitas-shares /home/
+    chown jitas:jitas /home/jitas-shares -R
+fi
+
+# ------------------------------------------------------------------------------
+# autologin on tty1
+# ------------------------------------------------------------------------------
+out <<< "tty autostart..."
+
+cp -arp $TMPL/etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
+systemctl daemon-reload
+
+# if this is a reinstall time then reboot is needed
+if pgrep -u jitas >/dev/null; then
+    ACTIVE_SESSION=true
+else
+    systemctl restart getty@tty1.service
+fi
+
+# ------------------------------------------------------------------------------
+# completed
+# ------------------------------------------------------------------------------
+END_TIME=$(date +%s)
+DURATION=$(date -u -d "0 $END_TIME seconds - $START_TIME seconds" +"%H:%M:%S")
+COMPLETED=true
+
+# vim: tw=80 ts=4 sw=4 sts=4 et
