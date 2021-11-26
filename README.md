@@ -73,7 +73,7 @@ reboot with it.
 Run the following command to check the module support
 
 ```bash
-modprobe v4l2loopback
+modprobe snd-aloop
 ```
 
 If there is a warning then you need to install the standard kernel. Probably the
