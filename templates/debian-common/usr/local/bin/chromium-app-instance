@@ -11,8 +11,7 @@ systemctl --user start video.service
 
 # start the chromium app
 mkdir -p $HOME/.config/jitas-chromium
-chromium --incognito --new-window --user-data-dir=$HOME/.config/jitas-chromium \
-    --app="$LINK"
+chromium --new-window --user-data-dir=$HOME/.config/jitas-chromium --app="$LINK"
 
 # set above and sticky for the chromium app windows
 sleep 2
