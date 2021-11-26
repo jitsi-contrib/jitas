@@ -70,8 +70,7 @@ $qs#\
 userInfo.displayName="$DISPLAY_NAME"&\
 userInfo.email="$AVATAR_EMAIL"&\
 interfaceConfig.HIDE_INVITE_MORE_HEADER=true&\
-interfaceConfig.TOOLBAR_BUTTONS=["microphone","camera","chat"]&\
-interfaceConfig.TOOLBAR_TIMEOUT=1000&\
+config.audioQuality.stereo=true&\
 config.channelLastN=1&\
 config.disableAEC=true&\
 config.disableAGC=true&\
@@ -95,7 +94,9 @@ config.notifications=[]&\
 config.p2p.enabled=false&\
 config.prejoinPageEnabled=false&\
 config.requireDisplayName=false&\
-config.stereo=true\
+config.stereo=true&\
+config.toolbarButtons=["microphone","camera","chat"]&\
+config.toolbarConfig.timeout=1000\
 $config
 EOF
 )
