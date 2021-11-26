@@ -60,9 +60,9 @@ At least 4 cores and 8 GB RAM are recommended.
 
 ##### 2.2 Distribution
 
-`Jitas` is officially supported on `Debian 10 Buster`. Please create or install
-a `Debian 10 Buster` server and don't install the desktop environment, only the
-standard packages...
+`Jitas` is officially supported on `Debian 11 Bullseye`. Please create or
+install a `Debian 11 Bullseye` server and don't install the desktop environment,
+only the standard packages...
 
 ##### 2.3 Standard Linux Kernel
 
@@ -101,8 +101,8 @@ If the server is behind a firewall, open the following ports:
 Run the following commands as `root`
 
 ```bash
-wget -O debian-buster-mate https://raw.githubusercontent.com/jitsi-contrib/jitas/main/installer/debian-buster-mate
-bash debian-buster-mate
+wget -O debian-bullseye-mate https://raw.githubusercontent.com/jitsi-contrib/jitas/main/installer/debian-bullseye-mate
+bash debian-bullseye-mate
 ```
 
 #### 4. Let's Encrypt Support

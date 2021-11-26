@@ -74,7 +74,7 @@ environment.
 ##### 3.1 Debian GNU/Linux
 
 `Jitas` is not only an application. `Jitas` needs a highly customized
-environment. `Debian 10 Buster` is the officially supported distro and support
+environment. `Debian 11 Bullseye` is the officially supported distro and support
 will continue in future Debian releases (_I hope_)
 
 ##### 3.2 MATE desktop environment
@@ -149,14 +149,14 @@ This part describes processes and methods used in `Jitas`
 ##### 4.1 Deployment
 
 `Jitas` environment is created using a
-[deployment script](../installer/debian-buster-mate). It installs all needed
+[deployment script](../installer/debian-bullseye-mate). It installs all needed
 packages and tools, configures the environment and starts the system.
 
 All developed scripts, customized configuration and used files are found in the
-[templates](../templates/debian-buster-mate) folder according to their
+[templates](../templates/debian-bullseye-mate) folder according to their
 destination locations.
 
-`Debian 10 Buster` is officially supported. Don't install any desktop
+`Debian 11 Bullseye` is officially supported. Don't install any desktop
 environment to this server, only the standard packages...
 
 ##### 4.2 Auto login
@@ -164,7 +164,7 @@ environment to this server, only the standard packages...
 `Jitas` starts the desktop using a customized `systemd` config.
 
 See
-[getty override](../templates/debian-buster-mate/etc/systemd/system/getty@tty1.service.d/override.conf)
+[getty override](../templates/debian-bullseye-mate/etc/systemd/system/getty@tty1.service.d/override.conf)
 
 ##### 4.3 Autostarted user services
 
@@ -172,31 +172,31 @@ All user services are started when the desktop is started and stopped when the
 desktop is closed.
 
 See
-[user systemd](../templates/debian-buster-mate/etc/skel/.config/systemd/user)
+[user systemd](../templates/debian-bullseye-mate/etc/skel/.config/systemd/user)
 for more details.
 
 ##### 4.4 User scripts
 
 All user scripts are in
-[/usr/local/bin](../templates/debian-buster-mate/usr/local/bin) folder.
+[/usr/local/bin](../templates/debian-bullseye-mate/usr/local/bin) folder.
 
 ##### 4.5 Virtual webcam
 
 The virtual webcam device is created using `v4l2loopback` module.
 
 See
-[jitas-camera](../templates/debian-buster-mate/etc/modprobe.d/jitas-camera.conf)
+[jitas-camera](../templates/debian-bullseye-mate/etc/modprobe.d/jitas-camera.conf)
 
 ##### 4.6 Virtual microphone
 
 The virtual microphone and playback devices are created using `PulseAudio`. All
 real sound cards are disabled if any...
 
-See [audio-start](../templates/debian-buster-mate/usr/local/bin/audio-start)
+See [audio-start](../templates/debian-bullseye-mate/usr/local/bin/audio-start)
 
 ##### 4.7 Desktop capturing
 
-[video-start](../templates/debian-buster-mate/usr/local/bin/video-start)
+[video-start](../templates/debian-bullseye-mate/usr/local/bin/video-start)
 captures the desktop screen. It only run when connecting to a meeting and stops
 when all meeting are finished. The desktop capturing is a very CPU intensive
 process and therefore it's not a good idea to run it all the time.
@@ -207,21 +207,21 @@ A private Chromium instance is used when connecting to the meetings. This
 instance uses a seperate config folder to avoid user errors.
 
 See
-[chromium-app-start](../templates/debian-buster-mate/usr/local/bin/chromium-app-start)
+[chromium-app-start](../templates/debian-bullseye-mate/usr/local/bin/chromium-app-start)
 and
-[chromium-app-instance](../templates/debian-buster-mate/usr/local/bin/chromium-app-instance)
+[chromium-app-instance](../templates/debian-bullseye-mate/usr/local/bin/chromium-app-instance)
 
 ##### 4.9 Customized connection for the Jitsi meeting room
 
 The
-[connect-meeting](../templates/debian-buster-mate/usr/local/bin/connect-meeting)
+[connect-meeting](../templates/debian-bullseye-mate/usr/local/bin/connect-meeting)
 script is used when connecting to a `Jitsi` meeting room. It customizes heavily
 the connection URL.
 
 ##### 4.10 Pre-configured meetings
 
 The
-[pre-configured-meetings](../templates/debian-buster-mate/etc/skel/.config/jitas/pre-configured-meetings)
+[pre-configured-meetings](../templates/debian-bullseye-mate/etc/skel/.config/jitas/pre-configured-meetings)
 file (_which is in `.config/jitas` of user's home_) contains the list of
 pre-configured meetings. The user can connect to these meeting rooms without
 typing the full address.
@@ -232,9 +232,9 @@ Users can share files publicly or privately by putting them in the related
 folders.
 
 See
-[Public README](../templates/debian-buster-mate/home/jitas-shares/public/README.txt)
+[Public README](../templates/debian-bullseye-mate/home/jitas-shares/public/README.txt)
 and
-[Private README](../templates/debian-buster-mate/home/jitas-shares/private/README.txt)
+[Private README](../templates/debian-bullseye-mate/home/jitas-shares/private/README.txt)
 
 ---
 
