@@ -101,4 +101,4 @@ $config
 EOF
 )
 
-exec chromium-app-instance "$URL"
+exec chromium-app "$URL"

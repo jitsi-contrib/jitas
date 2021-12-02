@@ -1,0 +1,42 @@
+#!/bin/bash
+
+WIDTH=320
+HEIGHT=180
+LINK="$1"
+DATADIR=/tmp/jitas/chromium-$(dbus-uuidgen)
+
+# ------------------------------------------------------------------------------
+# sticky
+# ------------------------------------------------------------------------------
+function sticky {
+    # set above and sticky for the chromium app windows
+    sleep 2
+    for wid in $(wmctrl -lpx | awk '{print $1,$4}' | egrep '\.jitas$' | \
+                 cut -d ' ' -f1); do
+        wmctrl -ir $wid -b add,above
+        wmctrl -ir $wid -b add,sticky
+    done
+}
+
+# ------------------------------------------------------------------------------
+# main
+# ------------------------------------------------------------------------------
+# if no link, exit
+[[ -z "$LINK" ]] && exit 1
+
+# if already running process, exit
+systemctl --user is-active video.service && exit 1
+
+# start the desktop capturing
+systemctl --user start video.service
+
+# start the chromium app
+mkdir -p $DATADIR
+sticky &
+
+chromium --class=jitas --mute-audio --use-fake-ui-for-media-stream \
+    --window-size=$WIDTH,$HEIGHT --user-data-dir=$DATADIR \
+    --app="$LINK"
+
+rm -rf $DATADIR
+pgrep chrome || systemctl --user stop video.service
