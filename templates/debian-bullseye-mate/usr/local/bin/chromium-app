@@ -35,8 +35,8 @@ mkdir -p $DATADIR
 sticky &
 
 google-chrome --class=jitas --mute-audio --use-fake-ui-for-media-stream \
-    --window-size=$WIDTH,$HEIGHT --user-data-dir=$DATADIR \
+    --window-size=$WIDTH,$HEIGHT --user-data-dir=$DATADIR --no-first-run \
     --app="$LINK"
 
 rm -rf $DATADIR
-pgrep chrome || systemctl --user stop video.service
+pgrep "class=jitas" || systemctl --user stop video.service
