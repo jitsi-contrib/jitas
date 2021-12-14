@@ -120,18 +120,17 @@ rm -rf $REPO
 git clone --depth=1 $REMOTE $REPO
 
 # ------------------------------------------------------------------------------
-# ungoogled-chromium
+# google chrome
 # ------------------------------------------------------------------------------
-out <<< "ungoogled-chromium..."
+out <<< "google chrome..."
 
-wget -qO /tmp/ungoogled-chromium.gpg.key \
-    https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Bullseye/Release.key
-cat /tmp/ungoogled-chromium.gpg.key | gpg --dearmor \
-     >/usr/share/keyrings/ungoogled-chromium.gpg
-cp $TMPL/etc/apt/sources.list.d/ungoogled-chromium.list /etc/apt/sources.list.d/
+wget -qO /tmp/google-chrome.gpg.key \
+    https://dl.google.com/linux/linux_signing_key.pub
+apt-key add /tmp/google-chrome.gpg.key
+cp $TMPL/etc/apt/sources.list.d/google-chrome.list /etc/apt/sources.list.d/
 
 apt-get -y update
-apt-get $APT_PROXY_OPTION -y install ungoogled-chromium
+apt-get $APT_PROXY_OPTION -y --install-recommends install google-chrome-stable
 
 # ------------------------------------------------------------------------------
 # devices
@@ -234,8 +233,9 @@ cp $TMPL/etc/skel/.tmux.conf /etc/skel/
 out <<< "default apps..."
 
 # set the default browser
-update-alternatives --set gnome-www-browser /usr/bin/chromium || true
-update-alternatives --set x-www-browser /usr/bin/chromium || true
+update-alternatives --set gnome-www-browser /usr/bin/google-chrome-stable \
+    || true
+update-alternatives --set x-www-browser /usr/bin/google-chrome-stable || true
 
 # ------------------------------------------------------------------------------
 # self-signed certificates

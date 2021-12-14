@@ -34,7 +34,7 @@ systemctl --user start video.service
 mkdir -p $DATADIR
 sticky &
 
-chromium --class=jitas --mute-audio --use-fake-ui-for-media-stream \
+google-chrome --class=jitas --mute-audio --use-fake-ui-for-media-stream \
     --window-size=$WIDTH,$HEIGHT --user-data-dir=$DATADIR \
     --app="$LINK"
 
