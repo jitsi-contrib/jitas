@@ -1,0 +1,10 @@
+[Unit]
+Description=Chromium launch service
+
+[Service]
+ExecStart=/usr/local/bin/chromium-launch
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

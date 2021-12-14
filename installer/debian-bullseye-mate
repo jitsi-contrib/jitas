@@ -188,6 +188,8 @@ dconf update
 # ------------------------------------------------------------------------------
 out <<< "chromium-app..."
 
+cp $TMPL/usr/local/bin/chromium-launch /usr/local/bin/
+chmod 755 /usr/local/bin/chromium-launch
 cp $TMPL/usr/local/bin/chromium-app /usr/local/bin/
 chmod 755 /usr/local/bin/chromium-app
 cp $TMPL/usr/local/bin/connect-meeting /usr/local/bin/

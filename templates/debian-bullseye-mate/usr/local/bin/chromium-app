@@ -1,9 +1,8 @@
 #!/bin/bash
+set -e
 
-WIDTH=320
-HEIGHT=180
 LINK="$1"
-DATADIR=/tmp/jitas/chromium-$(dbus-uuidgen)
+DATADIR=/tmp/jitas-chromium
 
 # ------------------------------------------------------------------------------
 # sticky
@@ -24,19 +23,11 @@ function sticky {
 # if no link, exit
 [[ -z "$LINK" ]] && exit 1
 
-# if already running process, exit
-systemctl --user is-active video.service && exit 1
-
 # start the desktop capturing
 systemctl --user start video.service
 
 # start the chromium app
-mkdir -p $DATADIR
-sticky &
+google-chrome --new-window --user-data-dir=$DATADIR --app="$LINK"
 
-google-chrome --class=jitas --mute-audio --use-fake-ui-for-media-stream \
-    --window-size=$WIDTH,$HEIGHT --user-data-dir=$DATADIR --no-first-run \
-    --app="$LINK"
-
-rm -rf $DATADIR
-pgrep "class=jitas" || systemctl --user stop video.service
+# set above and sticky for the chromium app windows
+sticky
