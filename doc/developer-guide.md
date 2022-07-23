@@ -208,8 +208,7 @@ instance uses a seperate config folder to avoid user errors.
 
 See
 [chromium-launch](../templates/debian-bullseye-mate/usr/local/bin/chromium-launch)
-and
-[chromium-app](../templates/debian-bullseye-mate/usr/local/bin/chromium-app)
+and [chromium-app](../templates/debian-bullseye-mate/usr/local/bin/chromium-app)
 
 ##### 4.9 Customized connection for the Jitsi meeting room
 

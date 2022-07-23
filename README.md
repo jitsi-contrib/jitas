@@ -45,10 +45,9 @@ But `Jitas` does completely the opposite task.
 
 See [developer guide](doc/developer-guide.md) for more details.
 
-[This project](https://platform-euhack21.bemyapp.com/#/projects/607dea7c972ccc0019009868)
-started developing on April 26th at
-[Winning over the classroom with Jitsi](https://euhack21.bemyapp.com/)
-Hackathon.
+This project started developing on April 26th, 2021 at
+[Winning over the classroom with Jitsi](https://euhack21.bemyapp.com/) Hackathon
+and won [the 4th prize](https://jitsi.org/blog/who-won-over-the-classroom/).
 
 #### 2. Prerequisites
 
