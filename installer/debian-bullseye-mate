@@ -58,7 +58,7 @@ trap on_exit EXIT
 # environment
 # ------------------------------------------------------------------------------
 export START_TIME=$(date +%s)
-export APT_PROXY_OPTION=$APT_PROXY_OPTION
+export APT_PROXY=$APT_PROXY
 export DEBIAN_FRONTEND=noninteractive
 export BASEDIR=$(pwd)
 export REMOTE=https://github.com/jitsi-contrib/jitas.git
@@ -85,26 +85,26 @@ for i in $(seq 3); do
     apt-get -y --allow-releaseinfo-change update && sleep 3 && break
 done
 
-apt-get $APT_PROXY_OPTION -y install apt-utils \
+apt-get $APT_PROXY -y install apt-utils \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold"
-apt-get $APT_PROXY_OPTION -y upgrade \
+apt-get $APT_PROXY -y upgrade \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold"
 apt-get -y autoremove --purge
 
-apt-get $APT_PROXY_OPTION -y install apt-transport-https gnupg
-apt-get $APT_PROXY_OPTION -y install wget curl git rsync
-apt-get $APT_PROXY_OPTION -y install zsh tmux vim ack autojump htop
-apt-get $APT_PROXY_OPTION -y install ssl-cert ca-certificates openssl
-apt-get $APT_PROXY_OPTION -y install task-desktop task-mate-desktop dconf-cli
-apt-get $APT_PROXY_OPTION -y install vlc totem
-apt-get $APT_PROXY_OPTION -y install ffmpeg pavucontrol
-apt-get $APT_PROXY_OPTION -y install x11vnc pwgen
-apt-get $APT_PROXY_OPTION -y install wmctrl xdotool yad jq
-apt-get $APT_PROXY_OPTION -y install nginx certbot
-apt-get $APT_PROXY_OPTION -y install kmod v4l2loopback-dkms
-apt-get $APT_PROXY_OPTION -y install python3-pip python3-setuptools \
+apt-get $APT_PROXY -y install apt-transport-https gnupg
+apt-get $APT_PROXY -y install wget curl git rsync
+apt-get $APT_PROXY -y install zsh tmux vim ack autojump htop
+apt-get $APT_PROXY -y install ssl-cert ca-certificates openssl
+apt-get $APT_PROXY -y install task-desktop task-mate-desktop dconf-cli
+apt-get $APT_PROXY -y install vlc totem
+apt-get $APT_PROXY -y install ffmpeg pavucontrol
+apt-get $APT_PROXY -y install x11vnc pwgen
+apt-get $APT_PROXY -y install wmctrl xdotool yad jq
+apt-get $APT_PROXY -y install nginx certbot
+apt-get $APT_PROXY -y install kmod v4l2loopback-dkms
+apt-get $APT_PROXY -y install python3-pip python3-setuptools \
     python3-wheel
 pip3 install websockify
 
@@ -130,7 +130,7 @@ apt-key add /tmp/google-chrome.gpg.key
 cp $TMPL/etc/apt/sources.list.d/google-chrome.list /etc/apt/sources.list.d/
 
 apt-get -y update
-apt-get $APT_PROXY_OPTION -y --install-recommends install google-chrome-stable
+apt-get $APT_PROXY -y --install-recommends install google-chrome-stable
 
 # ------------------------------------------------------------------------------
 # devices
