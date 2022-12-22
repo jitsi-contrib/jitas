@@ -12,6 +12,7 @@ set hidden
 set encoding=utf-8
 set bg=dark
 set scrolloff=3
+set showcmd
 
 autocmd InsertEnter * set cursorline cursorcolumn
 autocmd InsertLeave * set nocursorline nocursorcolumn
